@@ -438,16 +438,10 @@
       "description": "For shared governance, delegator authorized to upgrade the VotingMachine proxy after governance approval.",
       "proxyOf": [["0x6D1cCA35Aa431F2AF0f0F2b9050c582B823ac731", null]]
     },
-    "mocOracleManager": {
+    "oracleManager": {
       "contractName": "Oracle manager",
       "address": "0x64A5634b2d1f17DC7C4765aAcD222f8e9Eb7712C",
-      "description": "For MoC, oracle manager coordinating coin pairs, oracle selection, and staking.",
-      "proxyOf": [["0xDa61bA24E64d508E27f699F6F41E46C6246f5c54", null]]
-    },
-    "rocOracleManager": {
-      "contractName": "Oracle manager",
-      "address": "0x64A5634b2d1f17DC7C4765aAcD222f8e9Eb7712C",
-      "description": "For RoC, oracle manager coordinating coin pairs, oracle selection, and staking.",
+      "description": "For the shared oracle system, mainnet proxy coordinating coin pairs, oracle selection, and staking.",
       "proxyOf": [["0xDa61bA24E64d508E27f699F6F41E46C6246f5c54", null]]
     }
   },
@@ -458,17 +452,11 @@
       "description": "For MoC and RoC, governance executor authorized to run approved protocol changes.",
       "proxyOf": [["0xF7a62e993a84c5E50E9410ec4609D1D6a5397842", null]]
     },
-    "mocOracleManager": {
+    "oracleManager": {
       "contractName": "Oracle manager",
       "address": "0x493eefbB8F0a22f85708c0C890E7B531E61A7018",
-      "description": "For MoC, oracle manager coordinating coin pairs, oracle selection, and staking.",
+      "description": "For the shared oracle system, testnet proxy coordinating coin pairs, oracle selection, and staking.",
       "proxyOf": [["0x79b2b85C697E4b7caD1e50cCEE7D48959436FD1D", null]]
-    },
-    "rocOracleManager": {
-      "contractName": "Oracle manager",
-      "address": "0x7b716178771057195bB511f0B1F7198EEE62Bc22",
-      "description": "For RoC, oracle manager coordinating coin pairs, oracle selection, and staking.",
-      "proxyOf": [["0xF7a62e993a84c5E50E9410ec4609D1D6a5397842", null]]
     },
     "mocRegistry": {
       "contractName": "Governed registry",
