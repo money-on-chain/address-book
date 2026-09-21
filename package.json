@@ -1,4 +1,11 @@
 {
+  "_comment": [
+    "This manifest publishes the typed Rootstock deployment address book.",
+    "address-book.json is the only source of deployment records.",
+    "The emitted library derives full and address-only views from that JSON.",
+    "viem is the only consumer dependency and supplies Address and Hash types.",
+    "Node and TypeScript packages below are development tools and are not runtime dependencies."
+  ],
   "name": "address-book",
   "version": "0.1.0",
   "description": "Typed Rootstock address book for Money on Chain and Rif on Chain",
@@ -10,19 +17,21 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./address-book.json": "./address-book.json",
     "./package.json": "./package.json"
   },
   "files": [
+    "address-book.json",
     "dist",
     "README.md"
   ],
   "scripts": {
-    "build": "pnpm clean && pnpm exec tsc -p tsconfig.json",
-    "check": "pnpm exec tsc -p tsconfig.check.json",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.check.json",
     "clean": "rm -rf dist",
-    "prepack": "pnpm build",
-    "test": "pnpm exec tsx --test test/**/*.test.ts",
-    "update:proxies": "pnpm exec tsx scripts/updateProxyHistory.ts"
+    "prepack": "npm run build",
+    "test": "tsx --test test/**/*.test.ts",
+    "update:proxies": "tsx scripts/updateProxyHistory.ts"
   },
   "peerDependencies": {
     "viem": "^2.53.1"

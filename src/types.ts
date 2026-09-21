@@ -1,55 +1,68 @@
+/*
+ * This module defines the public shape of the canonical address book.
+ * Address and transaction-hash strings use viem types so consumers cannot confuse them.
+ * An entry is a proxy only when its JSON metadata contains the proxy field.
+ * Proxy histories may be incomplete when Blockscout cannot recover creation-time state.
+ * These types contain no protocol implementation dependency and emit no runtime import.
+ */
 import type { Address, Hash } from "viem";
 
 export type Environment = "mainnet" | "testnet";
 
 export type AddressBookGroup = "moc" | "roc" | "governance";
 
+export type ProxyStandard = "eip1967" | "eip1967_oz";
+
 export interface AddressSource {
-  /** Repository that originally owned this address before the unified package was created. */
-  readonly repository: "main-RBTC-contract" | "roc-sc-protocol-v2" | "proposals-changers";
-  /** Original environment-qualified field, retained so provenance can be audited. */
-  readonly field: string;
+  /** Repository and field from which this entry was originally collected. */
+  repository:
+    | "main-RBTC-contract"
+    | "roc-sc-protocol-v2"
+    | "proposals-changers";
+  field: string;
 }
 
 export interface ProxyImplementation {
-  /** Activation block from an upgrade event, or null when the explorer exposed no event. */
-  readonly fromBlock: number | null;
-  readonly address: Address;
-  /** Upgrade transaction when the implementation was recovered from an Upgraded event. */
-  readonly transactionHash?: Hash;
-  /** Original project field when an old implementation came from a legacy address book. */
-  readonly source?: AddressSource;
+  /** Activation block from an upgrade event, or null when that block is unknown. */
+  fromBlock: number | null;
+  address: Address;
+  transactionHash?: Hash;
+  source?: AddressSource;
 }
 
 export interface ProxyMetadata {
-  readonly standard: string;
-  /** False means events did not establish the implementation active at proxy creation. */
-  readonly historyComplete: boolean;
-  /** Chronological implementation history. The final item is the current implementation. */
-  readonly implementations: readonly ProxyImplementation[];
+  standard: ProxyStandard;
+  /** False means the recorded events do not prove a complete history from deployment. */
+  historyComplete: boolean;
+  /** Ordered from the earliest known implementation to the current implementation. */
+  implementations: ProxyImplementation[];
 }
-
-export interface StoredProxyHistory extends ProxyMetadata {
-  /** Address of the stable proxy whose implementations are listed here. */
-  readonly proxyAddress: Address;
-}
-
-export type ProxyHistoryByEnvironment = Record<Environment, Partial<Record<Address, StoredProxyHistory>>>;
 
 export interface AddressBookEntry {
-  /** Contract or account concept, independent of the environment-specific address. */
-  readonly contractName: string;
-  readonly address: Address;
+  contractName: string;
+  address: Address;
   /** Explains the role and helps callers distinguish similarly named contracts. */
-  readonly description: string;
-  readonly source: AddressSource;
-  /** Present only when the address itself is a proxy. */
-  readonly proxy?: ProxyMetadata;
+  description: string;
+  source: AddressSource;
+  /** Its presence explicitly opts this entry into proxy-history updates. */
+  proxy?: ProxyMetadata;
 }
 
-export type AddressBookForEnv = Record<AddressBookGroup, Record<string, AddressBookEntry>>;
+export type AddressBookForEnv = Record<
+  AddressBookGroup,
+  Record<string, AddressBookEntry>
+>;
 
 export interface AddressBook {
-  readonly mainnet: AddressBookForEnv;
-  readonly testnet: AddressBookForEnv;
+  /** JSON cannot contain comments, so these lines document the canonical data file. */
+  _comment: string[];
+  mainnet: AddressBookForEnv;
+  testnet: AddressBookForEnv;
 }
+
+export type AddressLookupForEnv = Record<
+  AddressBookGroup,
+  Record<string, Address>
+>;
+
+export type AddressLookup = Record<Environment, AddressLookupForEnv>;

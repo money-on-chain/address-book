@@ -1,3 +1,8 @@
+// This configuration checks library code, the updater, and tests together.
+// It extends the publish build so both commands enforce the same strictness.
+// noEmit prevents validation from writing scripts or tests into dist.
+// The repository root is used because checked files span src, scripts, and test.
+// Node types cover the updater and the built-in test runner without runtime packages.
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {

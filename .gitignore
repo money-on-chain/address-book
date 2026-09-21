@@ -1,3 +1,10 @@
+# Installed packages are local build state and must never be committed.
+# Packed npm archives are release artifacts rather than source files.
+# Editor logs do not describe address-book behavior and only create noise.
+# macOS metadata is unrelated to the package on every supported platform.
+# Build output is recreated for releases and is not part of the maintained source tree.
 node_modules/
 *.tgz
+.log/
 .DS_Store
+dist/

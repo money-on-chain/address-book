@@ -1,26 +1,50 @@
-import { writeFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+/*
+ * This script refreshes implementation histories in the canonical address-book.json.
+ * It always checks both official Rootstock Blockscout explorers in one invocation.
+ * Only entries already marked with proxy metadata are inspected; it never discovers proxies.
+ * Blockscout's current implementation is used to validate the event-derived history tip.
+ * Unsupported proxy standards and inconsistent explorer data abort without rewriting the file.
+ */
+import { readFile, writeFile } from "node:fs/promises";
 
-import { getAddress, type Address, type Hash } from "viem";
+import { getAddress, toEventSelector, type Address, type Hash } from "viem";
 
-import { addressCatalog } from "../src/catalog.js";
-import { proxyHistory } from "../src/proxyHistory.js";
-import type { AddressBookEntry, Environment, ProxyImplementation, StoredProxyHistory } from "../src/types.js";
+import type {
+  AddressBook,
+  AddressBookEntry,
+  Environment,
+  ProxyImplementation,
+  ProxyMetadata,
+  ProxyStandard,
+} from "../src/types.js";
 
-const upgradedEventTopic = "0xbc7cd75a20ee27fd9adebab32041f755214dbc6bffa90cc0225b39da2e5c2d3b";
-const explorerUrls: Record<Environment, string | undefined> = {
-  mainnet: process.env.ROOTSTOCK_MAINNET_BLOCKSCOUT_URL,
-  testnet: process.env.ROOTSTOCK_TESTNET_BLOCKSCOUT_URL,
-};
+// These are the official Blockscout deployments for Rootstock mainnet and testnet.
+const networks = [
+  {
+    environment: "mainnet",
+    blockscoutUrl: new URL("https://rootstock.blockscout.com/"),
+  },
+  {
+    environment: "testnet",
+    blockscoutUrl: new URL("https://rootstock-testnet.blockscout.com/"),
+  },
+] as const satisfies readonly {
+  environment: Environment;
+  blockscoutUrl: URL;
+}[];
+
+// ERC-1967 and OpenZeppelin ERC-1967 proxies emit this event when their implementation changes.
+const upgradedEventTopic = toEventSelector("Upgraded(address)");
+
+// These are the only proxy types currently present in the book and both follow IERC1967.Upgraded.
+const proxyStandardsUsingUpgradedEvent = new Set<ProxyStandard>([
+  "eip1967",
+  "eip1967_oz",
+]);
 
 interface AddressDetails {
-  creation_transaction_hash: Hash | null;
   implementations: { address_hash: Address }[] | null;
   proxy_type: string | null;
-}
-
-interface TransactionDetails {
-  block_number: number;
 }
 
 interface LegacyLog {
@@ -35,39 +59,23 @@ interface LegacyLogResponse {
   status: string;
 }
 
-function explorerUrl(environment: Environment): string {
-  const url = explorerUrls[environment];
-  if (!url) {
-    throw new Error(`Set ROOTSTOCK_${environment.toUpperCase()}_BLOCKSCOUT_URL before updating proxy histories`);
-  }
-  return url.replace(/\/$/, "");
-}
-
+/** Blockscout has two API styles; this keeps their shared HTTP and JSON error handling consistent. */
 async function fetchJson<T>(url: URL): Promise<T> {
-  for (let attempt = 1; attempt <= 8; attempt++) {
-    const response = await fetch(url, { headers: { "user-agent": "money-on-chain-address-book/0.1" } });
-    if (response.ok) {
-      const value = (await response.json()) as T | null;
-      if (value !== null) return value;
-    }
-    if (response.status !== 429 && response.status < 500) {
-      throw new Error(`${response.status} ${response.statusText}: ${url}`);
-    }
-    await new Promise(resolve => setTimeout(resolve, Math.min(60_000, attempt * 5_000)));
-  }
-  throw new Error(`Explorer remained unavailable: ${url}`);
+  const response = await fetch(url);
+  if (!response.ok)
+    throw new Error(`${response.status} ${response.statusText}: ${url}`);
+  return (await response.json()) as T;
 }
 
-function uniqueAddresses(environment: Environment): Address[] {
-  const addresses = new Set<Address>();
-  for (const entries of Object.values(addressCatalog[environment]) as Record<string, AddressBookEntry>[]) {
-    for (const entry of Object.values(entries)) addresses.add(entry.address);
-  }
-  return [...addresses];
-}
-
-async function upgradeEvents(environment: Environment, proxyAddress: Address): Promise<ProxyImplementation[]> {
-  const url = new URL("api", `${explorerUrl(environment)}/`);
+/**
+ * Reads implementation changes for proxy standards that emit IERC1967.Upgraded.
+ * The implementation parameter is indexed, so its address occupies the second event topic.
+ */
+async function readUpgradeEvents(
+  blockscoutUrl: URL,
+  proxyAddress: Address,
+): Promise<ProxyImplementation[]> {
+  const url = new URL("api", blockscoutUrl);
   url.search = new URLSearchParams({
     module: "logs",
     action: "getLogs",
@@ -79,125 +87,134 @@ async function upgradeEvents(environment: Environment, proxyAddress: Address): P
   const response = await fetchJson<LegacyLogResponse>(url);
   if (response.status !== "1" || !Array.isArray(response.result)) {
     if (/no (logs|records)/i.test(response.message)) return [];
-    throw new Error(`Blockscout could not return upgrade events: ${response.message}`);
+    throw new Error(
+      `Blockscout could not return upgrade events for ${proxyAddress}: ${response.message}`,
+    );
   }
 
-  const history = response.result
-    .flatMap(log => {
-      const implementationTopic = log.topics[1];
-      if (!implementationTopic) return [];
-      return [
-        {
-          fromBlock: Number.parseInt(log.blockNumber, 16),
-          address: getAddress(`0x${implementationTopic.slice(-40)}`),
-          transactionHash: log.transactionHash,
-        },
-      ];
-    })
-    .sort((left, right) => left.fromBlock - right.fromBlock);
-
-  return history.filter(
-    (implementation, index) => index === 0 || history[index - 1]?.address !== implementation.address,
-  );
+  return response.result.map((log) => {
+    const implementationTopic = log.topics[1];
+    if (!implementationTopic)
+      throw new Error(
+        `Upgraded event for ${proxyAddress} has no implementation topic`,
+      );
+    return {
+      fromBlock: Number.parseInt(log.blockNumber, 16),
+      address: getAddress(`0x${implementationTopic.slice(-40)}`),
+      transactionHash: log.transactionHash,
+    };
+  });
 }
 
-async function inspectAddress(environment: Environment, address: Address): Promise<StoredProxyHistory | undefined> {
+/**
+ * Refreshes one explicitly marked proxy while preserving provenance recorded by maintainers.
+ * Blockscout's implementations array describes current targets, while events provide history.
+ */
+async function updatedProxyMetadata(
+  blockscoutUrl: URL,
+  proxyAddress: Address,
+  recordedProxy: ProxyMetadata,
+): Promise<ProxyMetadata> {
+  if (!proxyStandardsUsingUpgradedEvent.has(recordedProxy.standard)) {
+    throw new Error(
+      `Proxy ${proxyAddress} uses unsupported standard ${recordedProxy.standard}`,
+    );
+  }
+
   const details = await fetchJson<AddressDetails>(
-    new URL(`api/v2/addresses/${address}`, `${explorerUrl(environment)}/`),
+    new URL(`api/v2/addresses/${proxyAddress}`, blockscoutUrl),
   );
-  if (!details.proxy_type) return undefined;
-
-  const currentImplementation = details.implementations?.[0]?.address_hash;
-  const eventHistory = await upgradeEvents(environment, address);
-  const existing = proxyHistory[environment][
-    address.toLowerCase() as keyof (typeof proxyHistory)[typeof environment]
-  ] as StoredProxyHistory | undefined;
-  const implementations: ProxyImplementation[] = eventHistory.length
-    ? [
-        ...(existing?.implementations.filter(
-          oldImplementation =>
-            !eventHistory.some(event => event.address.toLowerCase() === oldImplementation.address.toLowerCase()),
-        ) ?? []),
-        ...eventHistory,
-      ]
-    : [...(existing?.implementations ?? [])];
-  let creationBlock: number | undefined;
-  if (details.creation_transaction_hash) {
-    const creation = await fetchJson<TransactionDetails>(
-      new URL(`api/v2/transactions/${details.creation_transaction_hash}`, `${explorerUrl(environment)}/`),
+  if (details.proxy_type !== recordedProxy.standard) {
+    throw new Error(
+      `Proxy ${proxyAddress} is recorded as ${recordedProxy.standard}, but Blockscout reports ${details.proxy_type}`,
     );
-    creationBlock = creation.block_number;
+  }
+  if (details.implementations?.length !== 1) {
+    throw new Error(
+      `Expected one current implementation for ${proxyAddress}, got ${details.implementations?.length ?? 0}`,
+    );
   }
 
-  if (currentImplementation) {
-    const currentIndex = implementations.findIndex(
-      implementation => implementation.address.toLowerCase() === currentImplementation.toLowerCase(),
-    );
-    if (currentIndex === -1) {
-      implementations.push({ fromBlock: null, address: getAddress(currentImplementation) });
-    } else if (currentIndex !== implementations.length - 1) {
-      implementations.push(...implementations.splice(currentIndex, 1));
-    }
-  }
-
-  const eventsReachCreation = Boolean(
-    creationBlock !== undefined && eventHistory[0]?.fromBlock !== null && eventHistory[0]!.fromBlock <= creationBlock,
+  const currentImplementation = getAddress(
+    details.implementations[0].address_hash,
   );
-  return {
-    proxyAddress: address,
-    standard: details.proxy_type,
-    historyComplete: existing?.historyComplete || eventsReachCreation,
-    implementations,
-  };
-}
-
-function renderHistory(history: Record<Environment, StoredProxyHistory[]>): string {
-  const lines = [
-    'import type { Address } from "viem";',
-    'import type { ProxyHistoryByEnvironment } from "./types.js";',
-    "",
-    'const address = <T extends Address>(literal: T): T => literal;',
-    "",
-    "/** Generated by scripts/updateProxyHistory.ts. Do not edit by hand. */",
-    "export const proxyHistory = {",
+  const upgradeEvents = await readUpgradeEvents(blockscoutUrl, proxyAddress);
+  const knownUpgradeEvents = [
+    ...recordedProxy.implementations.filter(
+      (implementation) => implementation.fromBlock !== null,
+    ),
   ];
-  for (const environment of ["mainnet", "testnet"] as const) {
-    lines.push(`  ${environment}: {`);
-    for (const proxy of history[environment].sort((a, b) => a.proxyAddress.localeCompare(b.proxyAddress))) {
-      lines.push(`    ${JSON.stringify(proxy.proxyAddress.toLowerCase())}: {`);
-      lines.push(`      proxyAddress: address(${JSON.stringify(proxy.proxyAddress)}),`);
-      lines.push(`      standard: ${JSON.stringify(proxy.standard)},`);
-      lines.push(`      historyComplete: ${proxy.historyComplete},`);
-      lines.push("      implementations: [");
-      for (const implementation of proxy.implementations) {
-        lines.push("        {");
-        lines.push(`          fromBlock: ${implementation.fromBlock ?? "null"},`);
-        lines.push(`          address: address(${JSON.stringify(implementation.address)}),`);
-        if (implementation.transactionHash) {
-          lines.push(`          transactionHash: ${JSON.stringify(implementation.transactionHash)},`);
-        }
-        if (implementation.source) {
-          lines.push(
-            `          source: { repository: ${JSON.stringify(implementation.source.repository)}, field: ${JSON.stringify(implementation.source.field)} },`,
-          );
-        }
-        lines.push("        },");
-      }
-      lines.push("      ],");
-      lines.push("    },");
+  for (const event of upgradeEvents) {
+    const duplicate = knownUpgradeEvents.some(
+      (implementation) =>
+        implementation.fromBlock === event.fromBlock &&
+        implementation.address.toLowerCase() === event.address.toLowerCase(),
+    );
+    if (!duplicate) knownUpgradeEvents.push(event);
+  }
+  knownUpgradeEvents.sort((left, right) => left.fromBlock! - right.fromBlock!);
+
+  const implementationsWithoutKnownBlock = recordedProxy.implementations.filter(
+    (implementation) =>
+      implementation.fromBlock === null &&
+      !knownUpgradeEvents.some(
+        (event) =>
+          event.address.toLowerCase() === implementation.address.toLowerCase(),
+      ),
+  );
+  for (const event of knownUpgradeEvents) {
+    const source = recordedProxy.implementations.find(
+      (implementation) =>
+        implementation.address.toLowerCase() === event.address.toLowerCase() &&
+        implementation.source,
+    )?.source;
+    if (source) event.source = source;
+  }
+  const implementations = [
+    ...implementationsWithoutKnownBlock,
+    ...knownUpgradeEvents,
+  ];
+
+  const recordedCurrentImplementation = implementations.at(-1)?.address;
+  if (
+    recordedCurrentImplementation?.toLowerCase() !==
+    currentImplementation.toLowerCase()
+  ) {
+    throw new Error(
+      `Proxy ${proxyAddress} resolves to ${currentImplementation}, but its merged history ends at ${recordedCurrentImplementation ?? "nothing"}`,
+    );
+  }
+
+  return { ...recordedProxy, implementations };
+}
+
+const addressBookFile = new URL("../address-book.json", import.meta.url);
+const addressBook = JSON.parse(
+  await readFile(addressBookFile, "utf8"),
+) as AddressBook;
+
+for (const { environment, blockscoutUrl } of networks) {
+  const entriesByProxyAddress = new Map<string, AddressBookEntry[]>();
+  for (const entries of Object.values(addressBook[environment])) {
+    for (const entry of Object.values(entries)) {
+      if (!entry.proxy) continue;
+      const matchingEntries =
+        entriesByProxyAddress.get(entry.address.toLowerCase()) ?? [];
+      matchingEntries.push(entry);
+      entriesByProxyAddress.set(entry.address.toLowerCase(), matchingEntries);
     }
-    lines.push("  },");
   }
-  lines.push("} as const satisfies ProxyHistoryByEnvironment;", "");
-  return lines.join("\n");
+
+  for (const matchingEntries of entriesByProxyAddress.values()) {
+    const representative = matchingEntries[0];
+    if (!representative?.proxy) continue;
+    const updatedProxy = await updatedProxyMetadata(
+      blockscoutUrl,
+      representative.address,
+      representative.proxy,
+    );
+    for (const entry of matchingEntries) entry.proxy = updatedProxy;
+  }
 }
 
-const histories: Record<Environment, StoredProxyHistory[]> = { mainnet: [], testnet: [] };
-for (const environment of ["mainnet", "testnet"] as const) {
-  for (const address of uniqueAddresses(environment)) {
-    const proxy = await inspectAddress(environment, address);
-    if (proxy) histories[environment].push(proxy);
-  }
-}
-
-await writeFile(fileURLToPath(new URL("../src/proxyHistory.ts", import.meta.url)), renderHistory(histories));
+await writeFile(addressBookFile, `${JSON.stringify(addressBook, null, 2)}\n`);

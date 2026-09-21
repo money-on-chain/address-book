@@ -1,29 +1,24 @@
+// This configuration builds the small runtime library in src.
+// address-book.json remains at the package root and is imported by emitted JavaScript.
+// Declarations expose viem Address and Hash types to TypeScript consumers.
+// NodeNext preserves standards-based ESM and JSON import attributes.
+// Scripts and tests are checked separately so they are never published in dist.
 {
   "compilerOptions": {
     "declaration": true,
-    "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "ES2022",
-      "DOM"
-    ],
+    "lib": ["ES2022", "DOM"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "noImplicitAny": true,
     "outDir": "dist",
-    "sourceMap": true,
+    "resolveJsonModule": true,
+    "rootDir": "src",
     "strict": true,
     "target": "ES2022",
-    "types": [
-      "node"
-    ],
-    "rootDir": "src"
+    "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "dist"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist"]
 }

@@ -1,42 +1,32 @@
+<!--
+This repository is the shared deployment address book for Money on Chain and Rif on Chain.
+The canonical address-book.json contains every address, description, provenance record, and proxy history.
+The TypeScript library derives both metadata-rich and address-only views from that one file.
+Proxy updates inspect only entries explicitly marked as proxies and always cover both Rootstock networks.
+viem supplies the Address and Hash types but is not imported by the emitted JavaScript at runtime.
+-->
+
 # address-book
 
-Typed Rootstock deployment metadata for Money on Chain, Rif on Chain, and their shared governance contracts.
+Typed Rootstock deployment metadata for Money on Chain, Rif on Chain, and shared governance contracts.
 
 ```ts
-import { addressBook, addresses, findAddress } from "address-book";
+import { addressBook, addresses } from "address-book";
 
-// Full metadata, including descriptions, provenance, and proxy history.
-const rifBucket = addressBook.mainnet.roc.rifBucket;
-
-// Short lookup when only a viem Address is needed.
+const rifBucketMetadata = addressBook.mainnet.roc.rifBucket;
 const rifBucketAddress = addresses.mainnet.roc.rifBucket;
-const sameAddress = findAddress("mainnet", "roc.rifBucket");
 ```
 
-The published library has no runtime imports. Its only consumer dependency is `viem`, used for the `Address` and `Hash` types in TypeScript declarations.
+`address-book.json` is the single source of truth. Each entry carries a stable address, a description of its role, and its original repository and field. The TypeScript exports read that file directly.
 
-Every `address` and implementation address uses viem's `Address` type. The source catalog is TypeScript so entries can carry reviewable comments, while the exported object remains JSON-serializable.
-
-## Naming
-
-The top-level groups preserve ownership and context:
-
-- `moc` contains addresses sourced from `main-RBTC-contract`.
-- `roc` contains addresses sourced from `roc-sc-protocol-v2`.
-- `governance` contains addresses sourced from `proposals-changers`.
-
-An address that exists in only one environment starts with `onlyMainnet` or `onlyTestnet`. That asymmetry should prompt callers to confirm that they selected the intended network and contract.
-
-Stable proxy addresses are normal catalog entries. Implementation addresses are available only through the entry's `proxy.implementations` history because integrations should call the proxy. `historyComplete: false` means the explorer did not expose enough events to establish the implementation active at proxy creation.
+An entry that exists in only one environment starts with `onlyMainnet` or `onlyTestnet`. Stable proxy addresses include a `proxy` property containing their known implementation history. Implementation addresses do not appear as stable lookup names.
 
 ## Updating proxy histories
 
-The updater inspects every catalog address, identifies proxies through Blockscout, reads `Upgraded(address)` events, and rewrites only `src/proxyHistory.ts`.
+Run:
 
 ```sh
-ROOTSTOCK_MAINNET_BLOCKSCOUT_URL=https://rootstock.blockscout.com \
-ROOTSTOCK_TESTNET_BLOCKSCOUT_URL=https://rootstock-testnet.blockscout.com \
-pnpm --filter address-book update:proxies
+npm run update:proxies
 ```
 
-Review newly discovered proxies and implementation changes before committing the generated file. Explorer data is best effort; an incomplete history remains explicitly marked as such.
+The script checks every entry already marked as a proxy against the fixed Rootstock mainnet and testnet Blockscout endpoints. It merges `Upgraded(address)` events into `address-book.json` and validates that the final recorded implementation matches Blockscout's current implementation. It aborts on unsupported proxy standards or inconsistent explorer data rather than guessing.
