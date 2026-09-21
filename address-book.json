@@ -111,12 +111,6 @@
       "description": "For MoC, canonical Rootstock Name Service registry for this network.",
       "proxyOf": null
     },
-    "governorOwner": {
-      "contractName": "Governor owner account",
-      "address": "0x65a5681bE95d212F0c90eAd40170D8277de81169",
-      "description": "For RoC, administrative owner associated with the governor deployment; this is an account, not the Governor contract.",
-      "proxyOf": [["0x00594D5456c4650d10Edbb62D7a482d8Fa9a5b53", null]]
-    },
     "mocMultiCollateralGuard": {
       "contractName": "Multi-collateral guard",
       "address": "0x0237Ad1f0831b479a344E56646BC48B0885cF46F",
@@ -574,12 +568,6 @@
       "address": "0x7d284aaac6e925aad802a53c0c69efe3764597b8",
       "description": "For MoC, canonical Rootstock Name Service registry for this network.",
       "proxyOf": null
-    },
-    "governorOwner": {
-      "contractName": "Governor owner account",
-      "address": "0x7d124cc0f59ada5793ad8eda9ed1836cb7e797a3",
-      "description": "For RoC, administrative owner associated with the governor deployment; this is an account, not the Governor contract.",
-      "proxyOf": [["0xB2CEd9774663a43c85e8213dA1dD164261F136fC", null]]
     },
     "holder": {
       "contractName": "Test asset holder",
