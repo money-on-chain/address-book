@@ -7,7 +7,7 @@
     "Node and TypeScript packages below are development tools and are not runtime dependencies."
   ],
   "name": "address-book",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "Typed Rootstock address book for Money on Chain and Rif on Chain",
   "type": "module",
   "main": "./dist/index.js",

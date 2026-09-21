@@ -369,10 +369,34 @@
       "description": "For RoC, mainnet-only. Mainnet-only legacy RDOC token accepted by the RDOC-to-USD-RIF migrator.",
       "proxyOf": null
     },
+    "onlyMainnetRdocHolder": {
+      "contractName": "Funded RDOC holder",
+      "address": "0x0399489348fe8452fd00b104b03911fc387c031c",
+      "description": "For MoC and RoC end-to-end tests, mainnet-only funded account used to exercise RDOC migration flows.",
+      "proxyOf": null
+    },
+    "onlyMainnetRifAndDocHolder": {
+      "contractName": "Funded RIF and DOC holder",
+      "address": "0xD07d569322a93a47B62D71203e21f0AFf8246099",
+      "description": "For MoC and RoC end-to-end tests, mainnet-only funded account used to exercise RIF and DOC operations.",
+      "proxyOf": null
+    },
+    "onlyMainnetFastBtcBridge": {
+      "contractName": "FastBTC bridge",
+      "address": "0x1A8E78B41bc5Ab9Ebb6996136622B9b41A601b5C",
+      "description": "For the legacy MoC indexer, mainnet-only FastBTC bridge whose events are included in indexed application data.",
+      "proxyOf": null
+    },
     "onlyMainnetTokenMigrator": {
       "contractName": "RDOC-to-USD-RIF token migrator",
       "address": "0x4ac78a51f67bdbc9fcb813d041914b2de37e87d7",
       "description": "For RoC, mainnet-only. Mainnet-only migrator that converts legacy RDOC into the current USD-RIF token.",
+      "proxyOf": null
+    },
+    "mocHelperLib": {
+      "contractName": "MoC helper library",
+      "address": "0x592b84710955C9561008D137a5403E1dd9A222D8",
+      "description": "For MoC and RoC deployment tooling, linked MoCHelperLib deployment used to compile and deploy mainnet changers.",
       "proxyOf": null
     },
     "votingMachine": {
@@ -771,6 +795,12 @@
       "contractName": "RIF/MOC price provider",
       "address": "0x169733DB88838a07061dB985dd52583170796F38",
       "description": "For RoC, final provider quoting RIF in MOC. This is the provider installed in the active RIF-to-MOC auctions.",
+      "proxyOf": null
+    },
+    "mocHelperLib": {
+      "contractName": "MoC helper library",
+      "address": "0xD094d0981ac8d7555eC110732352aC9185e05cD7",
+      "description": "For MoC and RoC deployment tooling, linked MoCHelperLib deployment used to compile and deploy testnet changers.",
       "proxyOf": null
     },
     "votingMachine": {
