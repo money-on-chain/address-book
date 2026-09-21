@@ -1,0 +1,36 @@
+{
+  "name": "address-book",
+  "version": "0.1.0",
+  "description": "Typed Rootstock address book for Money on Chain and Rif on Chain",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "pnpm clean && pnpm exec tsc -p tsconfig.json",
+    "check": "pnpm exec tsc -p tsconfig.check.json",
+    "clean": "rm -rf dist",
+    "prepack": "pnpm build",
+    "test": "pnpm exec tsx --test test/**/*.test.ts",
+    "update:proxies": "pnpm exec tsx scripts/updateProxyHistory.ts"
+  },
+  "peerDependencies": {
+    "viem": "^2.53.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1",
+    "tsx": "^4.22.4",
+    "typescript": "6.0.3",
+    "viem": "2.53.1"
+  }
+}
