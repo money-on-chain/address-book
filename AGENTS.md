@@ -61,16 +61,16 @@ local guidance when it exists.
   catalog into this monorepo or make it depend on protocol implementations.
   Migration parameter files are inputs to changers, not runtime address books.
 - The canonical `address-book.json` stores each useful name, stable address,
-  description, environment, source provenance, and proxy metadata. TypeScript
-  utilities read that one file and derive the complete metadata view and the
-  short `Address` lookup; do not maintain parallel catalogs or generated shadow
-  histories. Prefix environment-only names with `onlyMainnet` or `onlyTestnet`
+  description, environment, and `proxyOf` implementation history. Each
+  environment is a flat name-to-entry mapping. TypeScript utilities read that
+  one file and derive the complete metadata view and the short `Address` lookup;
+  do not maintain parallel catalogs or generated shadow histories. Prefix environment-only names with `onlyMainnet` or `onlyTestnet`
   so missing parity remains conspicuous.
-- Mark proxies explicitly in `address-book.json`. The updater processes only
-  marked entries, appends verified implementation history to the same in-memory
-  structure, and overwrites that same JSON file. Keep implementation addresses
-  out of the stable lookup and retain activation blocks, transaction hashes, and
-  an explicit completeness flag when known.
+- Set `proxyOf` to null for non-proxies and to newest-first `[Address,
+fromBlock]` tuples for proxies. The updater processes only entries with a
+  `proxyOf` list, updates that same in-memory structure, and overwrites the same
+  JSON file. Implementation histories are informative records for validation and
+  verification; keep implementation addresses out of the stable lookup.
 - Shared utilities receive addresses explicitly from their consumers. Do not
   make a protocol implementation a dependency merely to obtain an address.
 - Do not add dependency patches, patch files, or a `patches/` directory to this

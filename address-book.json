@@ -1,2289 +1,789 @@
 {
   "_comment": [
     "This file is the single source of truth for deployed protocol addresses.",
-    "Descriptions and source fields explain how each address should be used.",
-    "Only entries with proxy metadata are inspected by the proxy-history updater.",
-    "Implementation histories are informative; integrations must call stable proxy addresses.",
+    "Descriptions state which protocol uses each contract and how that contract is used.",
+    "proxyOf is null for a non-proxy and otherwise lists known implementations as [address, fromBlock].",
+    "Implementation histories are informative and retain old implementations for validation or verification.",
+    "The most recent known implementation is first; fromBlock is when it became active and may be null or ignored.",
     "The TypeScript exports derive their metadata and address-only lookups from this file."
   ],
   "mainnet": {
-    "moc": {
-      "governor": {
-        "contractName": "Governor",
-        "address": "0x3b8853DF65AfBd94853E6D77ee0Ab5590F41bB08",
-        "description": "Governance executor authorized to run approved protocol changes.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.governor"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x6F5fF3C5E5cA6B2BB201014b534e1ABf2083B7b9"
-            }
-          ]
-        }
-      },
-      "oracleManager": {
-        "contractName": "Oracle manager",
-        "address": "0x64A5634b2d1f17DC7C4765aAcD222f8e9Eb7712C",
-        "description": "Oracle manager coordinating coin pairs, oracle selection, and staking.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.oracleManager"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xDa61bA24E64d508E27f699F6F41E46C6246f5c54"
-            }
-          ]
-        }
-      },
-      "mocRegistry": {
-        "contractName": "Governed registry",
-        "address": "0xCD101a2414256DA8F8E25d7b483b3cf639a71683",
-        "description": "Governed registry of legacy MoC and shared flow contracts.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.mocRegistry"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x90DbA8016b5E37Ec4cB70eA7f8171417E5Aab56a"
-            }
-          ]
-        }
-      },
-      "mocToken": {
-        "contractName": "MOC token",
-        "address": "0x9AC7fE28967B30E3A4e6e03286d715b42B453D10",
-        "description": "Canonical MOC governance and fee token.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.mocToken"
-        }
-      },
-      "docToken": {
-        "contractName": "DOC token",
-        "address": "0xe700691dA7b9851F2F35f8b8182c69c53CcaD9Db",
-        "description": "Canonical DOC stable token shared by the legacy MoC and RoC integrations.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.docToken"
-        }
-      },
-      "mocStateV1": {
-        "contractName": "MoC v1 state",
-        "address": "0xb9C42EFc8ec54490a37cA91c423F7285Fa01e257",
-        "description": "Legacy MoC v1 state and pricing contract.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.mocStateV1"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xf65BE577b252A41887e2f1a19b576A0925201186"
-            }
-          ]
-        }
-      },
-      "supporters": {
-        "contractName": "Oracle supporters",
-        "address": "0xB1fc9817C4ad3C40562DfF1159732d657831558A",
-        "description": "Oracle Supporters proxy that accounts for stake and distributes oracle rewards.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.supporters"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xA33248E7717101D9e93F26019E4363944d541296"
-            }
-          ]
-        }
-      },
-      "foundation": {
-        "contractName": "Foundation account",
-        "address": "0x4905F643Db489d9561617638d31875b6bfF79077",
-        "description": "Protocol foundation or treasury recipient used by fee-distribution contracts.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.foundation"
-        }
-      },
-      "tasksRunner": {
-        "contractName": "Oracle tasks runner",
-        "address": "0xd99a43ba443068Ea539CeB623aE24e6C9910b975",
-        "description": "Stable TasksRunner proxy used by selected oracles to execute scheduled protocol maintenance.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.tasksRunner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xA3eA7a013F11f71AD5D2139dDBBD385d559469D3"
-            }
-          ]
-        }
-      },
-      "docToRbtcPriceProvider": {
-        "contractName": "DOC/RBTC price provider",
-        "address": "0x6CA9d0e9382f58ac9B109f5F7F3AaBc8b86c1a24",
-        "description": "Price provider quoting DOC in RBTC. Use when a consumer explicitly requires a DOC/RBTC price.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.docToRbtcPriceProvider"
-        }
-      },
-      "rbtcToMocMocRewardsReverseAuction": {
-        "contractName": "RBTC-to-MOC rewards reverse auction",
-        "address": "0x42E29760D05CfB229D4075C75238Ec82Fb94fd59",
-        "description": "Reverse auction converting RBTC into MOC for the MOC rewards buffer.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.rbtcToMocMocRewardsReverseAuction"
-        }
-      },
-      "mocV1": {
-        "contractName": "MoC v1 core",
-        "address": "0xf773B590aF754D597770937Fa8ea7AbDf2668370",
-        "description": "Stable proxy for the legacy Money on Chain v1 core protocol.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.mocV1"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": 2270590,
-              "address": "0xba5f92d00b932c3b57457abca7d2daa625906054",
-              "transactionHash": "0x2daebe0b8177005e7080a78d1f520f171605d28a3a59547073f3fd33688c7031"
-            },
-            {
-              "fromBlock": 3683182,
-              "address": "0x9965c3b0fdcb9145adfd4c0535716b109f450f9f",
-              "transactionHash": "0xbbf69a56cebee5d05798d4834853c537fd28b7cace1650150423806537c36b12"
-            },
-            {
-              "fromBlock": 5056394,
-              "address": "0x2ef12b6488600d46bb271a6ea5ba08dd980e60c5",
-              "transactionHash": "0x981ae631a502e9c614aaa440d57cc81f2213627d077ce5a6620ed79aead8331b"
-            },
-            {
-              "fromBlock": 5417146,
-              "address": "0x54d9b8eb88f2e193c427b5134368f2dfaed8b979",
-              "transactionHash": "0x1789c5d2c25d2df9ed4dbbaf57f37aa97f25190b1a4e3d56b87f79a38813c66c"
-            },
-            {
-              "fromBlock": 8952188,
-              "address": "0xa60c124c197ff16162f484a5aad8691f01c07250",
-              "transactionHash": "0x147d20927a4d38dcaf08307e6cb5d83beea5117fee23c9a98248dd5d6dc81ac0"
-            },
-            {
-              "fromBlock": 9009197,
-              "address": "0x8cf0035b1d1bcd6821f563b3db0530ef59c5d226",
-              "transactionHash": "0x8f699df3fffc89ef48dacc91f80e2788a4a7f1fa6b6b32a11e83ae95fe1ab9cf"
-            }
-          ]
-        }
-      },
-      "mocInrateV1": {
-        "contractName": "MoC v1 interest and fees",
-        "address": "0xc0f9B54c41E3d0587Ce0F7540738d8d649b0A3F3",
-        "description": "Legacy MoC v1 interest-rate and commission contract.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.mocInrateV1"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x2FFC7Ec2A97CAE6E357D288e1a59F5e242Dc031a"
-            }
-          ]
-        }
-      },
-      "coiner": {
-        "contractName": "Coiner",
-        "address": "0x661F7d510cdB40638f5Afd9f9dF8877398500593",
-        "description": "Stable Coiner proxy used by the shared reward-minting flow. Use the proxy address, never an implementation address.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.coiner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xD996bDCcD8c9Fbba65d5a5D5A562de3228aa614f"
-            }
-          ]
-        }
-      },
-      "multicall2": {
-        "contractName": "Multicall2",
-        "address": "0x8f344c3b2a02a801c24635f594c5652c8a2eb02a",
-        "description": "Shared Multicall2 deployment used to batch read-only calls. It is infrastructure, not a protocol-owned proxy.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.multicall2"
-        }
-      },
-      "vendor": {
-        "contractName": "MoC application vendor account",
-        "address": "0xC61820bFB8F87391d62Cd3976dDc1d35e0cf7128",
-        "description": "Vendor account supplied by the MoC application so operations can be attributed for vendor commissions.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.vendor"
-        }
-      },
-      "rns": {
-        "contractName": "RNS registry",
-        "address": "0xcb868aeabd31e2b66f74e9a55cf064abb31a4ad5",
-        "description": "Canonical Rootstock Name Service registry for this network.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "mainnet.rns"
-        }
-      }
+    "governor": {
+      "contractName": "Governor",
+      "address": "0x3b8853DF65AfBd94853E6D77ee0Ab5590F41bB08",
+      "description": "For MoC and RoC, governance executor authorized to run approved protocol changes.",
+      "proxyOf": [["0x6F5fF3C5E5cA6B2BB201014b534e1ABf2083B7b9", null]]
     },
-    "roc": {
-      "governor": {
-        "contractName": "Governor",
-        "address": "0x3b8853DF65AfBd94853E6D77ee0Ab5590F41bB08",
-        "description": "Governance executor authorized to run approved protocol changes.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.governor"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x6F5fF3C5E5cA6B2BB201014b534e1ABf2083B7b9"
-            }
-          ]
-        }
-      },
-      "governorOwner": {
-        "contractName": "Governor owner account",
-        "address": "0x65a5681bE95d212F0c90eAd40170D8277de81169",
-        "description": "Administrative owner associated with the governor deployment; this is an account, not the Governor contract.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.governorOwner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x00594D5456c4650d10Edbb62D7a482d8Fa9a5b53"
-            }
-          ]
-        }
-      },
-      "oracleManager": {
-        "contractName": "Oracle manager",
-        "address": "0x64A5634b2d1f17DC7C4765aAcD222f8e9Eb7712C",
-        "description": "Oracle manager coordinating coin pairs, oracle selection, and staking.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.oracleManager"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xDa61bA24E64d508E27f699F6F41E46C6246f5c54"
-            }
-          ]
-        }
-      },
-      "mocRegistry": {
-        "contractName": "Governed registry",
-        "address": "0xCD101a2414256DA8F8E25d7b483b3cf639a71683",
-        "description": "Governed registry of legacy MoC and shared flow contracts.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocRegistry"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x90DbA8016b5E37Ec4cB70eA7f8171417E5Aab56a"
-            }
-          ]
-        }
-      },
-      "mocMultiCollateralGuard": {
-        "contractName": "Multi-collateral guard",
-        "address": "0x0237Ad1f0831b479a344E56646BC48B0885cF46F",
-        "description": "Stable proxy coordinating operations across the RIF-backed and DOC-backed collateral buckets.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocMultiCollateralGuard"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xC36DA47c94c57FDE23cEF9Fc436B4EdA9A7C3EBd",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "mainnet.mocMultiCollateralGuardImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0xd8aE2af39d7a4B4C42BA78E837E48A417F1174bb"
-            }
-          ]
-        }
-      },
-      "mocCore": {
-        "contractName": "Legacy RoC core",
-        "address": "0xA27024Ed70035E46dba712609fc2Afa1c97aA36A",
-        "description": "Legacy RoC core contract retained for integrations that still refer to the original core deployment.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocCore"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x1a2702d60a8B68B845709155b3d97E1Da85FeC54",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "mainnet.mocRifImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0x5316384Be99310FdEa0dA0b3Cc0d0bB9E7f0887F"
-            }
-          ]
-        }
-      },
-      "mocToken": {
-        "contractName": "MOC token",
-        "address": "0x9AC7fE28967B30E3A4e6e03286d715b42B453D10",
-        "description": "Canonical MOC governance and fee token.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocToken"
-        }
-      },
-      "rifToken": {
-        "contractName": "RIF token",
-        "address": "0x2AcC95758f8b5F583470ba265EB685a8F45fC9D5",
-        "description": "Canonical RIF token used as collateral by the RIF-backed RoC bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifToken"
-        }
-      },
-      "rifProToken": {
-        "contractName": "RIFPro token",
-        "address": "0xf4d27c56595Ed59B66cC7F03CFF5193e4bd74a61",
-        "description": "Current RIFPro collateral token used by the RIF-backed RoC bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifProToken"
-        }
-      },
-      "usdRifToken": {
-        "contractName": "USD-rif token",
-        "address": "0x3A15461d8aE0F0Fb5Fa2629e9DA7D66A794a6e37",
-        "description": "Canonical USD-rif pegged token used by RoC collateral buckets.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.usdRifToken"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x6D1BB87856A2b2351D87Ba5772a93dC911325af9",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "mainnet.usdRifImplementation"
-              }
-            }
-          ]
-        }
-      },
-      "docToken": {
-        "contractName": "DOC token",
-        "address": "0xe700691dA7b9851F2F35f8b8182c69c53CcaD9Db",
-        "description": "Canonical DOC stable token shared by the legacy MoC and RoC integrations.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.docToken"
-        }
-      },
-      "docProToken": {
-        "contractName": "DOC collateral token",
-        "address": "0x6D46472D6c147970706eA41Db9CAAB79da9262c2",
-        "description": "Collateral token associated with the DOC-backed RoC bucket; it is not the DOC stable token.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.docProToken"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x3844B9B96E304BbB0b2940aDF455cEec3d03f986"
-            }
-          ]
-        }
-      },
-      "rifBucket": {
-        "contractName": "RIF collateral bucket",
-        "address": "0xA27024Ed70035E46dba712609fc2Afa1c97aA36A",
-        "description": "Stable proxy for the RIF-backed RoC collateral bucket whose pegged token is USD-rif.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifBucket"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x1a2702d60a8B68B845709155b3d97E1Da85FeC54",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "mainnet.mocRifImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0x5316384Be99310FdEa0dA0b3Cc0d0bB9E7f0887F"
-            }
-          ]
-        }
-      },
-      "docBucket": {
-        "contractName": "DOC collateral bucket",
-        "address": "0x697535055Aa7AfD2C280523C7B062b1F05284661",
-        "description": "RoC multi-collateral bucket backed by DOC and serving USD-rif operations. This is the stable bucket proxy.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.docBucket"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xF9208Ca168ff7cCAFd120EDBf39CF86b625F5A9B",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "mainnet.docBucketImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0x5316384Be99310FdEa0dA0b3Cc0d0bB9E7f0887F"
-            }
-          ]
-        }
-      },
-      "rifQueue": {
-        "contractName": "RIF operation queue",
-        "address": "0x47f5014115d3bb29B20b5168Ee75050D6f8c3Bf1",
-        "description": "Operation queue used by the RIF collateral bucket. Use the proxy address for queue calls.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifQueue"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x9a1b725B8DD1523159DcBE5B2e4075A95FE64a7d",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "mainnet.mocQueueImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0x8D7a31357bA29FECd3e6CE5B6110a2a28F619C97"
-            }
-          ]
-        }
-      },
-      "docQueue": {
-        "contractName": "DOC operation queue",
-        "address": "0x2BBCBC2CD2F2655d5A4306637c46Bcf2E6D859f6",
-        "description": "Operation queue used by the DOC collateral bucket. Use the proxy address for queue calls.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.docQueue"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x4515be1CAb97f17933e954f5d1e01f1A73DDD8ce",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "mainnet.docBucketQueueImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0x8D7a31357bA29FECd3e6CE5B6110a2a28F619C97"
-            }
-          ]
-        }
-      },
-      "rifUsdLegacyPriceProvider": {
-        "contractName": "Legacy RIF/USD price provider",
-        "address": "0x6a5b2C84E63b5C1330bf4CcCff1Ad6F23116CC14",
-        "description": "Legacy RIF/USD provider retained for contracts that have not moved to rifUsdCoinPair.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifUsdLegacyPriceProvider"
-        }
-      },
-      "rifToRbtcPriceProvider": {
-        "contractName": "RIF/RBTC price provider",
-        "address": "0x9F5cE0A8f023F8096145cE2d792EB66091cB89fe",
-        "description": "Final provider quoting RIF in RBTC for protocol consumers.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifToRbtcPriceProvider"
-        }
-      },
-      "docToUsdRifPriceProvider": {
-        "contractName": "DOC/USD-rif price provider",
-        "address": "0x6A343488338b944C6FcC89906646FaC1e8E91cE5",
-        "description": "Price provider quoting DOC in USD-rif for interactions between the DOC and RIF collateral buckets.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.docToUsdRifPriceProvider"
-        }
-      },
-      "docToRbtcPriceProvider": {
-        "contractName": "DOC/RBTC price provider",
-        "address": "0x6CA9d0e9382f58ac9B109f5F7F3AaBc8b86c1a24",
-        "description": "Price provider quoting DOC in RBTC. Use when a consumer explicitly requires a DOC/RBTC price.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.docToRbtcPriceProvider"
-        }
-      },
-      "mocToRifBasePriceProvider": {
-        "contractName": "MOC/RIF base price provider",
-        "address": "0x11683439c9509C135ee4F7bB6e23835e1d86ECBA",
-        "description": "Base provider used to derive a MOC/RIF price. Prefer the final directional provider when one is available.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocToRifBasePriceProvider"
-        }
-      },
-      "rifToRbtcDivisorPriceProvider": {
-        "contractName": "RIF/RBTC divisor",
-        "address": "0xe2927A0620b82A66D67F678FC9b826B0E01B1bFD",
-        "description": "Divisor input used to derive RIF/RBTC pricing. Prefer rifToRbtcPriceProvider for the final quote.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifToRbtcDivisorPriceProvider"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xa7E86Af8eb19E3DAB8e7353cB27D286372AaC87d"
-            }
-          ]
-        }
-      },
-      "btcUsdCoinPair": {
-        "contractName": "BTC/USD CoinPairPrice",
-        "address": "0xa288319eCb63301e21963E21EF3Ca8fb720d2672",
-        "description": "Canonical decentralized BTC/USD oracle coin pair used by protocol price providers and automation.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.btcUsdCoinPair"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xB9f7b2996123bDd1157fd7549d90573240fb8b9A"
-            }
-          ]
-        }
-      },
-      "supporters": {
-        "contractName": "Oracle supporters",
-        "address": "0xB1fc9817C4ad3C40562DfF1159732d657831558A",
-        "description": "Oracle Supporters proxy that accounts for stake and distributes oracle rewards.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.supporters"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xA33248E7717101D9e93F26019E4363944d541296"
-            }
-          ]
-        }
-      },
-      "foundation": {
-        "contractName": "Foundation account",
-        "address": "0x4905F643Db489d9561617638d31875b6bfF79077",
-        "description": "Protocol foundation or treasury recipient used by fee-distribution contracts.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.foundation"
-        }
-      },
-      "holder": {
-        "contractName": "Test asset holder",
-        "address": "0xe4822F07C1d988A8f2F53D1817f7e8848897b67A",
-        "description": "Funded account used by tests and operational simulations. Do not treat it as a protocol contract.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.holder"
-        }
-      },
-      "oracleOwner1": {
-        "contractName": "Oracle owner 1",
-        "address": "0x4e9e0e64ff95f9a629D1F756119fA636F30BbACD",
-        "description": "Known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.oracleOwner1"
-        }
-      },
-      "oracleOwner2": {
-        "contractName": "Oracle owner 2",
-        "address": "0xd6fdad4e02477A05A492F1AC51cfE0883C470022",
-        "description": "Known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.oracleOwner2"
-        }
-      },
-      "oracleOwner3": {
-        "contractName": "Oracle owner 3",
-        "address": "0xC9acAf0Ab55cADC285F109E20d9Ba5cCa81d02D6",
-        "description": "Known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.oracleOwner3"
-        }
-      },
-      "rifCommissionSplitterV2": {
-        "contractName": "RIF commission splitter V2",
-        "address": "0x9C66296938d849802fFa879A20fdC11B58C55851",
-        "description": "Live version-2 splitter for fees produced by the RIF collateral bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifCommissionSplitterV2"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x4c02A2D1C9272c80C89728458CB5ab69E09931C5"
-            }
-          ]
-        }
-      },
-      "rifCommissionSplitterV3": {
-        "contractName": "RIF commission splitter V3",
-        "address": "0x6C22ff31fbdF725d30F206efFF9f8a2a11fAf948",
-        "description": "Live version-3 splitter for fees produced by the RIF collateral bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifCommissionSplitterV3"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x53a81D1DD889768d30e7CD3bfDc0CA468566adD1"
-            }
-          ]
-        }
-      },
-      "docCommissionSplitterV2": {
-        "contractName": "DOC commission splitter V2",
-        "address": "0xfc5E1B8468327B60cA1C6e32672249De9a10FfDc",
-        "description": "Live version-2 splitter for fees produced by the DOC collateral bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.docCommissionSplitterV2"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x5a3aBC1b009291217465539ef26666494559c694"
-            }
-          ]
-        }
-      },
-      "mocCommissionSplitterV2": {
-        "contractName": "MOC commission splitter V2",
-        "address": "0x60cEEf03AA1AA96263e297D220EE4EBc3c6b6E47",
-        "description": "Live version-2 splitter for MOC-denominated commissions.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocCommissionSplitterV2"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x3DF0fd2E1f0f7A9004Fa10d4A4d25B299B259BeB"
-            }
-          ]
-        }
-      },
-      "mocCommissionSplitterV3": {
-        "contractName": "MOC commission splitter V3",
-        "address": "0x114921bcbd5fc34E103494d338cA492B9400B0fD",
-        "description": "Live version-3 splitter for MOC-denominated commissions.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocCommissionSplitterV3"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x165Ea15Fc08A8F9469EDaE30C7eA076999EBa019"
-            }
-          ]
-        }
-      },
-      "rifProRewardsBuffer": {
-        "contractName": "RIFPro rewards buffer",
-        "address": "0x09A84d61c1A10f1D5fb3267DFb00D16ca0DaCC30",
-        "description": "Buffer that accumulates RIFPro rewards before automated distribution.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifProRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x2a7D6Bf483C8AF0f6a25258b8d5e7b9Ad18fF46F"
-            }
-          ]
-        }
-      },
-      "rocrRewardsBuffer": {
-        "contractName": "ROCR rewards buffer",
-        "address": "0x9Ea22Ca83dD42A4b8E4C797bBcd6dFE4413EE8F8",
-        "description": "Legacy buffer that accumulates ROCR rewards before automated distribution.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rocrRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x2d8A760A2d7c87a6A1D2f6B43A59925Bbc819606"
-            }
-          ]
-        }
-      },
-      "bitProRewardsBuffer": {
-        "contractName": "BitPro rewards buffer",
-        "address": "0x7002dD3027947aB98cA3DDC28F93F2450281453A",
-        "description": "Legacy buffer that accumulates BitPro rewards before automated distribution. Use this only for the legacy BitPro reward flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.bitProRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xc8B4475274A9eb428A5717e20130C08783506aD8"
-            }
-          ]
-        }
-      },
-      "bproRewardsBuffer": {
-        "contractName": "BPro rewards buffer",
-        "address": "0x5646c6988d5D3d7F78F15683CE3aca11699BCDBb",
-        "description": "Legacy buffer that accumulates BPro rewards before automated distribution. Use this only for the legacy BPro reward flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.bproRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xcF44aAc06EB56CA636fc6F0815a14Aa2367B4d2e"
-            }
-          ]
-        }
-      },
-      "mocRewardsBuffer": {
-        "contractName": "MOC rewards buffer",
-        "address": "0xf09006E812BE98c7B18c877Af5C126629acB6cAb",
-        "description": "Buffer that receives MOC rewards before they are distributed through the automated rewards flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xe136359e0c3eAdB1925308eA40098E8819F41FD7"
-            }
-          ]
-        }
-      },
-      "rifToMocRocRewardsReverseAuction": {
-        "contractName": "RIF-to-MOC RoC rewards reverse auction",
-        "address": "0x323f6117A256E8f697Ac8d2816eb71e9B7134809",
-        "description": "Reverse auction converting RIF into MOC for the RoC rewards flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifToMocRocRewardsReverseAuction"
-        }
-      },
-      "mocToRifRifBucketReverseAuction": {
-        "contractName": "MOC-to-RIF bucket reverse auction",
-        "address": "0xd3D1aFc638cEF2C55D2Ee33e0C355972f11Be065",
-        "description": "Reverse auction converting MOC into RIF for the RIF collateral-bucket flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocToRifRifBucketReverseAuction"
-        }
-      },
-      "docToMocRocRewardsReverseAuction": {
-        "contractName": "DOC-to-MOC RoC rewards reverse auction",
-        "address": "0x883e3433c236Abd3c301FFc9B59EA478C0C21c9a",
-        "description": "Reverse auction converting DOC into MOC for the RoC rewards flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.docToMocRocRewardsReverseAuction"
-        }
-      },
-      "mocToDocDocBucketReverseAuction": {
-        "contractName": "MOC-to-DOC bucket reverse auction",
-        "address": "0x3EB689a01c4e8ccaC7c72097104FF37Ccf907bBE",
-        "description": "Reverse auction converting MOC into DOC for the DOC collateral-bucket flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocToDocDocBucketReverseAuction"
-        }
-      },
-      "rbtcToMocMocRewardsReverseAuction": {
-        "contractName": "RBTC-to-MOC rewards reverse auction",
-        "address": "0x42E29760D05CfB229D4075C75238Ec82Fb94fd59",
-        "description": "Reverse auction converting RBTC into MOC for the MOC rewards buffer.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rbtcToMocMocRewardsReverseAuction"
-        }
-      },
-      "mocToRbtcMocV1ReverseAuction": {
-        "contractName": "MOC-to-RBTC MoC v1 reverse auction",
-        "address": "0xcd1D5d171a466A103c3A078C6770dEb801011542",
-        "description": "Reverse auction converting MOC into RBTC for the legacy MoC v1 flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocToRbtcMocV1ReverseAuction"
-        }
-      },
-      "mocStateV1": {
-        "contractName": "MoC v1 state",
-        "address": "0xb9C42EFc8ec54490a37cA91c423F7285Fa01e257",
-        "description": "Legacy MoC v1 state and pricing contract.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.mocStateV1"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xf65BE577b252A41887e2f1a19b576A0925201186"
-            }
-          ]
-        }
-      },
-      "tasksRunner": {
-        "contractName": "Oracle tasks runner",
-        "address": "0xd99a43ba443068Ea539CeB623aE24e6C9910b975",
-        "description": "Stable TasksRunner proxy used by selected oracles to execute scheduled protocol maintenance.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.tasksRunner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xA3eA7a013F11f71AD5D2139dDBBD385d559469D3"
-            }
-          ]
-        }
-      },
-      "rifUsdCoinPair": {
-        "contractName": "RIF/USD CoinPairPrice",
-        "address": "0xaFb1B8C320ACc776c1279bcDB24Ab8F84aB727A4",
-        "description": "Decentralized RIF/USD oracle coin pair introduced for the current RoC price flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifUsdCoinPair"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xB9f7b2996123bDd1157fd7549d90573240fb8b9A"
-            }
-          ]
-        }
-      },
-      "rbtcToMocPriceProvider": {
-        "contractName": "RBTC/MOC price provider",
-        "address": "0x46f28Bb1F9E96B11899d36c8072d3345a27b732B",
-        "description": "Price provider quoting RBTC in MOC for RBTC-to-MOC auctions.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rbtcToMocPriceProvider"
-        }
-      },
-      "rifToMocPriceProvider": {
-        "contractName": "RIF/MOC price provider",
-        "address": "0x6A27F7D7457a0198631e835a13d7be9a94812002",
-        "description": "Final provider quoting RIF in MOC. This is the provider installed in the active RIF-to-MOC auctions.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rifToMocPriceProvider"
-        }
-      },
-      "multicall2": {
-        "contractName": "Multicall2",
-        "address": "0x8f344c3b2a02a801c24635f594c5652c8a2eb02a",
-        "description": "Shared Multicall2 deployment used to batch read-only calls. It is infrastructure, not a protocol-owned proxy.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.multicall2"
-        }
-      },
-      "onlyMainnetRdocToken": {
-        "contractName": "RDOC token",
-        "address": "0x2d919f19d4892381d58edebeca66d5642cef1a1f",
-        "description": "Mainnet-only. Mainnet-only legacy RDOC token accepted by the RDOC-to-USD-rif migrator.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.rdocToken"
-        }
-      },
-      "onlyMainnetTokenMigrator": {
-        "contractName": "RDOC-to-USD-rif token migrator",
-        "address": "0x4ac78a51f67bdbc9fcb813d041914b2de37e87d7",
-        "description": "Mainnet-only. Mainnet-only migrator that converts legacy RDOC into the current USD-rif token.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "mainnet.tokenMigrator"
-        }
-      }
+    "mocRegistry": {
+      "contractName": "Governed registry",
+      "address": "0xCD101a2414256DA8F8E25d7b483b3cf639a71683",
+      "description": "For MoC and RoC, governed registry of legacy MoC and shared flow contracts.",
+      "proxyOf": [["0x90DbA8016b5E37Ec4cB70eA7f8171417E5Aab56a", null]]
     },
-    "governance": {
-      "votingMachine": {
-        "contractName": "Voting machine",
-        "address": "0x65a5681bE95d212F0c90eAd40170D8277de81169",
-        "description": "Stable governance VotingMachine proxy on which proposals are registered and voted.",
-        "source": {
-          "repository": "proposals-changers",
-          "field": "mainnet.votingMachine"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x00594D5456c4650d10Edbb62D7a482d8Fa9a5b53"
-            }
-          ]
-        }
-      },
-      "votingUpgradeDelegator": {
-        "contractName": "Voting upgrade delegator",
-        "address": "0x131564703310a294C1bFDC09D10EC0659f18E253",
-        "description": "Delegator authorized to upgrade the VotingMachine proxy after governance approval.",
-        "source": {
-          "repository": "proposals-changers",
-          "field": "mainnet.votingUpgradeDelegator"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x6D1cCA35Aa431F2AF0f0F2b9050c582B823ac731"
-            }
-          ]
-        }
-      },
-      "coiner": {
-        "contractName": "Coiner",
-        "address": "0x661F7d510cdB40638f5Afd9f9dF8877398500593",
-        "description": "Stable Coiner proxy used by the shared reward-minting flow. Use the proxy address, never an implementation address.",
-        "source": {
-          "repository": "proposals-changers",
-          "field": "mainnet.coiner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xD996bDCcD8c9Fbba65d5a5D5A562de3228aa614f"
-            }
-          ]
-        }
-      }
+    "mocToken": {
+      "contractName": "MOC token",
+      "address": "0x9AC7fE28967B30E3A4e6e03286d715b42B453D10",
+      "description": "For MoC and RoC, canonical MOC governance and fee token.",
+      "proxyOf": null
+    },
+    "docToken": {
+      "contractName": "DOC token",
+      "address": "0xe700691dA7b9851F2F35f8b8182c69c53CcaD9Db",
+      "description": "For MoC and RoC, canonical DOC stable token shared by the legacy MoC and RoC integrations.",
+      "proxyOf": null
+    },
+    "mocStateV1": {
+      "contractName": "MoC v1 state",
+      "address": "0xb9C42EFc8ec54490a37cA91c423F7285Fa01e257",
+      "description": "For MoC and RoC, legacy MoC v1 state and pricing contract.",
+      "proxyOf": [["0xf65BE577b252A41887e2f1a19b576A0925201186", null]]
+    },
+    "supporters": {
+      "contractName": "Oracle supporters",
+      "address": "0xB1fc9817C4ad3C40562DfF1159732d657831558A",
+      "description": "For MoC and RoC, Oracle Supporters proxy that accounts for stake and distributes oracle rewards.",
+      "proxyOf": [["0xA33248E7717101D9e93F26019E4363944d541296", null]]
+    },
+    "foundation": {
+      "contractName": "Foundation account",
+      "address": "0x4905F643Db489d9561617638d31875b6bfF79077",
+      "description": "For MoC and RoC, protocol foundation or treasury recipient used by fee-distribution contracts.",
+      "proxyOf": null
+    },
+    "tasksRunner": {
+      "contractName": "Oracle tasks runner",
+      "address": "0xd99a43ba443068Ea539CeB623aE24e6C9910b975",
+      "description": "For MoC and RoC, stable TasksRunner proxy used by selected oracles to execute scheduled protocol maintenance.",
+      "proxyOf": [["0xA3eA7a013F11f71AD5D2139dDBBD385d559469D3", null]]
+    },
+    "docToRbtcPriceProvider": {
+      "contractName": "DOC/RBTC price provider",
+      "address": "0x6CA9d0e9382f58ac9B109f5F7F3AaBc8b86c1a24",
+      "description": "For MoC and RoC, price provider quoting DOC in RBTC. Use when a consumer explicitly requires a DOC/RBTC price.",
+      "proxyOf": null
+    },
+    "rbtcToMocMocRewardsReverseAuction": {
+      "contractName": "RBTC-to-MOC rewards reverse auction",
+      "address": "0x42E29760D05CfB229D4075C75238Ec82Fb94fd59",
+      "description": "For MoC and RoC, reverse auction converting RBTC into MOC for the MOC rewards buffer.",
+      "proxyOf": null
+    },
+    "mocV1": {
+      "contractName": "MoC v1 core",
+      "address": "0xf773B590aF754D597770937Fa8ea7AbDf2668370",
+      "description": "For MoC, stable proxy for the legacy Money on Chain v1 core protocol.",
+      "proxyOf": [
+        ["0x8cf0035b1d1bcd6821f563b3db0530ef59c5d226", 9009197],
+        ["0xa60c124c197ff16162f484a5aad8691f01c07250", 8952188],
+        ["0x54d9b8eb88f2e193c427b5134368f2dfaed8b979", 5417146],
+        ["0x2ef12b6488600d46bb271a6ea5ba08dd980e60c5", 5056394],
+        ["0x9965c3b0fdcb9145adfd4c0535716b109f450f9f", 3683182],
+        ["0xba5f92d00b932c3b57457abca7d2daa625906054", 2270590]
+      ]
+    },
+    "mocInrateV1": {
+      "contractName": "MoC v1 interest and fees",
+      "address": "0xc0f9B54c41E3d0587Ce0F7540738d8d649b0A3F3",
+      "description": "For MoC, legacy MoC v1 interest-rate and commission contract.",
+      "proxyOf": [["0x2FFC7Ec2A97CAE6E357D288e1a59F5e242Dc031a", null]]
+    },
+    "coiner": {
+      "contractName": "Coiner",
+      "address": "0x661F7d510cdB40638f5Afd9f9dF8877398500593",
+      "description": "For MoC and shared governance, stable Coiner proxy used by the shared reward-minting flow. Use the proxy address, never an implementation address.",
+      "proxyOf": [["0xD996bDCcD8c9Fbba65d5a5D5A562de3228aa614f", null]]
+    },
+    "multicall2": {
+      "contractName": "Multicall2",
+      "address": "0x8f344c3b2a02a801c24635f594c5652c8a2eb02a",
+      "description": "For MoC and RoC, shared Multicall2 deployment used to batch read-only calls. It is infrastructure, not a protocol-owned proxy.",
+      "proxyOf": null
+    },
+    "vendor": {
+      "contractName": "MoC application vendor account",
+      "address": "0xC61820bFB8F87391d62Cd3976dDc1d35e0cf7128",
+      "description": "For MoC, vendor account supplied by the MoC application so operations can be attributed for vendor commissions.",
+      "proxyOf": null
+    },
+    "rns": {
+      "contractName": "RNS registry",
+      "address": "0xcb868aeabd31e2b66f74e9a55cf064abb31a4ad5",
+      "description": "For MoC, canonical Rootstock Name Service registry for this network.",
+      "proxyOf": null
+    },
+    "governorOwner": {
+      "contractName": "Governor owner account",
+      "address": "0x65a5681bE95d212F0c90eAd40170D8277de81169",
+      "description": "For RoC, administrative owner associated with the governor deployment; this is an account, not the Governor contract.",
+      "proxyOf": [["0x00594D5456c4650d10Edbb62D7a482d8Fa9a5b53", null]]
+    },
+    "mocMultiCollateralGuard": {
+      "contractName": "Multi-collateral guard",
+      "address": "0x0237Ad1f0831b479a344E56646BC48B0885cF46F",
+      "description": "For RoC, stable proxy coordinating operations across the RIF-backed and DOC-backed collateral buckets.",
+      "proxyOf": [
+        ["0xd8aE2af39d7a4B4C42BA78E837E48A417F1174bb", null],
+        ["0xC36DA47c94c57FDE23cEF9Fc436B4EdA9A7C3EBd", null]
+      ]
+    },
+    "mocCore": {
+      "contractName": "Legacy RoC core",
+      "address": "0xA27024Ed70035E46dba712609fc2Afa1c97aA36A",
+      "description": "For RoC, legacy RoC core contract retained for integrations that still refer to the original core deployment.",
+      "proxyOf": [
+        ["0x5316384Be99310FdEa0dA0b3Cc0d0bB9E7f0887F", null],
+        ["0x1a2702d60a8B68B845709155b3d97E1Da85FeC54", null]
+      ]
+    },
+    "rifToken": {
+      "contractName": "RIF token",
+      "address": "0x2AcC95758f8b5F583470ba265EB685a8F45fC9D5",
+      "description": "For RoC, canonical RIF token used as collateral by the RIF-backed RoC bucket.",
+      "proxyOf": null
+    },
+    "rifProToken": {
+      "contractName": "RIFPro token",
+      "address": "0xf4d27c56595Ed59B66cC7F03CFF5193e4bd74a61",
+      "description": "For RoC, current RIFPro collateral token used by the RIF-backed RoC bucket.",
+      "proxyOf": null
+    },
+    "usdRifToken": {
+      "contractName": "USD-RIF token",
+      "address": "0x3A15461d8aE0F0Fb5Fa2629e9DA7D66A794a6e37",
+      "description": "For RoC, canonical USD-RIF pegged token used by RoC collateral buckets.",
+      "proxyOf": [["0x6D1BB87856A2b2351D87Ba5772a93dC911325af9", null]]
+    },
+    "docProToken": {
+      "contractName": "DOC collateral token",
+      "address": "0x6D46472D6c147970706eA41Db9CAAB79da9262c2",
+      "description": "For RoC, collateral token associated with the DOC-backed RoC bucket; it is not the DOC stable token.",
+      "proxyOf": [["0x3844B9B96E304BbB0b2940aDF455cEec3d03f986", null]]
+    },
+    "rifBucket": {
+      "contractName": "RIF collateral bucket",
+      "address": "0xA27024Ed70035E46dba712609fc2Afa1c97aA36A",
+      "description": "For RoC, stable proxy for the RIF-backed RoC collateral bucket whose pegged token is USD-RIF.",
+      "proxyOf": [
+        ["0x5316384Be99310FdEa0dA0b3Cc0d0bB9E7f0887F", null],
+        ["0x1a2702d60a8B68B845709155b3d97E1Da85FeC54", null]
+      ]
+    },
+    "docBucket": {
+      "contractName": "DOC collateral bucket",
+      "address": "0x697535055Aa7AfD2C280523C7B062b1F05284661",
+      "description": "For RoC, RoC multi-collateral bucket backed by DOC and serving USD-RIF operations. This is the stable bucket proxy.",
+      "proxyOf": [
+        ["0x5316384Be99310FdEa0dA0b3Cc0d0bB9E7f0887F", null],
+        ["0xF9208Ca168ff7cCAFd120EDBf39CF86b625F5A9B", null]
+      ]
+    },
+    "rifQueue": {
+      "contractName": "RIF operation queue",
+      "address": "0x47f5014115d3bb29B20b5168Ee75050D6f8c3Bf1",
+      "description": "For RoC, operation queue used by the RIF collateral bucket. Use the proxy address for queue calls.",
+      "proxyOf": [
+        ["0x8D7a31357bA29FECd3e6CE5B6110a2a28F619C97", null],
+        ["0x9a1b725B8DD1523159DcBE5B2e4075A95FE64a7d", null]
+      ]
+    },
+    "docQueue": {
+      "contractName": "DOC operation queue",
+      "address": "0x2BBCBC2CD2F2655d5A4306637c46Bcf2E6D859f6",
+      "description": "For RoC, operation queue used by the DOC collateral bucket. Use the proxy address for queue calls.",
+      "proxyOf": [
+        ["0x8D7a31357bA29FECd3e6CE5B6110a2a28F619C97", null],
+        ["0x4515be1CAb97f17933e954f5d1e01f1A73DDD8ce", null]
+      ]
+    },
+    "rifUsdLegacyPriceProvider": {
+      "contractName": "Legacy RIF/USD price provider",
+      "address": "0x6a5b2C84E63b5C1330bf4CcCff1Ad6F23116CC14",
+      "description": "For RoC, legacy RIF/USD provider retained for contracts that have not moved to rifUsdCoinPair.",
+      "proxyOf": null
+    },
+    "rifToRbtcPriceProvider": {
+      "contractName": "RIF/RBTC price provider",
+      "address": "0x9F5cE0A8f023F8096145cE2d792EB66091cB89fe",
+      "description": "For RoC, final provider quoting RIF in RBTC for protocol consumers.",
+      "proxyOf": null
+    },
+    "docToUsdRifPriceProvider": {
+      "contractName": "DOC/USD-RIF price provider",
+      "address": "0x6A343488338b944C6FcC89906646FaC1e8E91cE5",
+      "description": "For RoC, price provider quoting DOC in USD-RIF for interactions between the DOC and RIF collateral buckets.",
+      "proxyOf": null
+    },
+    "mocToRifBasePriceProvider": {
+      "contractName": "MOC/RIF base price provider",
+      "address": "0x11683439c9509C135ee4F7bB6e23835e1d86ECBA",
+      "description": "For RoC, base provider used to derive a MOC/RIF price. Prefer the final directional provider when one is available.",
+      "proxyOf": null
+    },
+    "rifToRbtcDivisorPriceProvider": {
+      "contractName": "RIF/RBTC divisor",
+      "address": "0xe2927A0620b82A66D67F678FC9b826B0E01B1bFD",
+      "description": "For RoC, divisor input used to derive RIF/RBTC pricing. Prefer rifToRbtcPriceProvider for the final quote.",
+      "proxyOf": [["0xa7E86Af8eb19E3DAB8e7353cB27D286372AaC87d", null]]
+    },
+    "btcUsdCoinPair": {
+      "contractName": "BTC/USD CoinPairPrice",
+      "address": "0xa288319eCb63301e21963E21EF3Ca8fb720d2672",
+      "description": "For RoC, canonical decentralized BTC/USD oracle coin pair used by protocol price providers and automation.",
+      "proxyOf": [["0xB9f7b2996123bDd1157fd7549d90573240fb8b9A", null]]
+    },
+    "holder": {
+      "contractName": "Test asset holder",
+      "address": "0xe4822F07C1d988A8f2F53D1817f7e8848897b67A",
+      "description": "For RoC, funded account used by tests and operational simulations. Do not treat it as a protocol contract.",
+      "proxyOf": null
+    },
+    "oracleOwner1": {
+      "contractName": "Oracle owner 1",
+      "address": "0x4e9e0e64ff95f9a629D1F756119fA636F30BbACD",
+      "description": "For RoC, known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
+      "proxyOf": null
+    },
+    "oracleOwner2": {
+      "contractName": "Oracle owner 2",
+      "address": "0xd6fdad4e02477A05A492F1AC51cfE0883C470022",
+      "description": "For RoC, known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
+      "proxyOf": null
+    },
+    "oracleOwner3": {
+      "contractName": "Oracle owner 3",
+      "address": "0xC9acAf0Ab55cADC285F109E20d9Ba5cCa81d02D6",
+      "description": "For RoC, known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
+      "proxyOf": null
+    },
+    "rifCommissionSplitterV2": {
+      "contractName": "RIF commission splitter V2",
+      "address": "0x9C66296938d849802fFa879A20fdC11B58C55851",
+      "description": "For RoC, live version-2 splitter for fees produced by the RIF collateral bucket.",
+      "proxyOf": [["0x4c02A2D1C9272c80C89728458CB5ab69E09931C5", null]]
+    },
+    "rifCommissionSplitterV3": {
+      "contractName": "RIF commission splitter V3",
+      "address": "0x6C22ff31fbdF725d30F206efFF9f8a2a11fAf948",
+      "description": "For RoC, live version-3 splitter for fees produced by the RIF collateral bucket.",
+      "proxyOf": [["0x53a81D1DD889768d30e7CD3bfDc0CA468566adD1", null]]
+    },
+    "docCommissionSplitterV2": {
+      "contractName": "DOC commission splitter V2",
+      "address": "0xfc5E1B8468327B60cA1C6e32672249De9a10FfDc",
+      "description": "For RoC, live version-2 splitter for fees produced by the DOC collateral bucket.",
+      "proxyOf": [["0x5a3aBC1b009291217465539ef26666494559c694", null]]
+    },
+    "mocCommissionSplitterV2": {
+      "contractName": "MOC commission splitter V2",
+      "address": "0x60cEEf03AA1AA96263e297D220EE4EBc3c6b6E47",
+      "description": "For RoC, live version-2 splitter for MOC-denominated commissions.",
+      "proxyOf": [["0x3DF0fd2E1f0f7A9004Fa10d4A4d25B299B259BeB", null]]
+    },
+    "mocCommissionSplitterV3": {
+      "contractName": "MOC commission splitter V3",
+      "address": "0x114921bcbd5fc34E103494d338cA492B9400B0fD",
+      "description": "For RoC, live version-3 splitter for MOC-denominated commissions.",
+      "proxyOf": [["0x165Ea15Fc08A8F9469EDaE30C7eA076999EBa019", null]]
+    },
+    "rifProRewardsBuffer": {
+      "contractName": "RIFPro rewards buffer",
+      "address": "0x09A84d61c1A10f1D5fb3267DFb00D16ca0DaCC30",
+      "description": "For RoC, buffer that accumulates RIFPro rewards before automated distribution.",
+      "proxyOf": [["0x2a7D6Bf483C8AF0f6a25258b8d5e7b9Ad18fF46F", null]]
+    },
+    "rocrRewardsBuffer": {
+      "contractName": "ROCR rewards buffer",
+      "address": "0x9Ea22Ca83dD42A4b8E4C797bBcd6dFE4413EE8F8",
+      "description": "For RoC, legacy buffer that accumulates ROCR rewards before automated distribution.",
+      "proxyOf": [["0x2d8A760A2d7c87a6A1D2f6B43A59925Bbc819606", null]]
+    },
+    "bitProRewardsBuffer": {
+      "contractName": "BitPro rewards buffer",
+      "address": "0x7002dD3027947aB98cA3DDC28F93F2450281453A",
+      "description": "For RoC, legacy buffer that accumulates BitPro rewards before automated distribution. Use this only for the legacy BitPro reward flow.",
+      "proxyOf": [["0xc8B4475274A9eb428A5717e20130C08783506aD8", null]]
+    },
+    "bproRewardsBuffer": {
+      "contractName": "BPro rewards buffer",
+      "address": "0x5646c6988d5D3d7F78F15683CE3aca11699BCDBb",
+      "description": "For RoC, legacy buffer that accumulates BPro rewards before automated distribution. Use this only for the legacy BPro reward flow.",
+      "proxyOf": [["0xcF44aAc06EB56CA636fc6F0815a14Aa2367B4d2e", null]]
+    },
+    "mocRewardsBuffer": {
+      "contractName": "MOC rewards buffer",
+      "address": "0xf09006E812BE98c7B18c877Af5C126629acB6cAb",
+      "description": "For RoC, buffer that receives MOC rewards before they are distributed through the automated rewards flow.",
+      "proxyOf": [["0xe136359e0c3eAdB1925308eA40098E8819F41FD7", null]]
+    },
+    "rifToMocRocRewardsReverseAuction": {
+      "contractName": "RIF-to-MOC RoC rewards reverse auction",
+      "address": "0x323f6117A256E8f697Ac8d2816eb71e9B7134809",
+      "description": "For RoC, reverse auction converting RIF into MOC for the RoC rewards flow.",
+      "proxyOf": null
+    },
+    "mocToRifRifBucketReverseAuction": {
+      "contractName": "MOC-to-RIF bucket reverse auction",
+      "address": "0xd3D1aFc638cEF2C55D2Ee33e0C355972f11Be065",
+      "description": "For RoC, reverse auction converting MOC into RIF for the RIF collateral-bucket flow.",
+      "proxyOf": null
+    },
+    "docToMocRocRewardsReverseAuction": {
+      "contractName": "DOC-to-MOC RoC rewards reverse auction",
+      "address": "0x883e3433c236Abd3c301FFc9B59EA478C0C21c9a",
+      "description": "For RoC, reverse auction converting DOC into MOC for the RoC rewards flow.",
+      "proxyOf": null
+    },
+    "mocToDocDocBucketReverseAuction": {
+      "contractName": "MOC-to-DOC bucket reverse auction",
+      "address": "0x3EB689a01c4e8ccaC7c72097104FF37Ccf907bBE",
+      "description": "For RoC, reverse auction converting MOC into DOC for the DOC collateral-bucket flow.",
+      "proxyOf": null
+    },
+    "mocToRbtcMocV1ReverseAuction": {
+      "contractName": "MOC-to-RBTC MoC v1 reverse auction",
+      "address": "0xcd1D5d171a466A103c3A078C6770dEb801011542",
+      "description": "For RoC, reverse auction converting MOC into RBTC for the legacy MoC v1 flow.",
+      "proxyOf": null
+    },
+    "rifUsdCoinPair": {
+      "contractName": "RIF/USD CoinPairPrice",
+      "address": "0xaFb1B8C320ACc776c1279bcDB24Ab8F84aB727A4",
+      "description": "For RoC, decentralized RIF/USD oracle coin pair introduced for the current RoC price flow.",
+      "proxyOf": [["0xB9f7b2996123bDd1157fd7549d90573240fb8b9A", null]]
+    },
+    "rbtcToMocPriceProvider": {
+      "contractName": "RBTC/MOC price provider",
+      "address": "0x46f28Bb1F9E96B11899d36c8072d3345a27b732B",
+      "description": "For RoC, price provider quoting RBTC in MOC for RBTC-to-MOC auctions.",
+      "proxyOf": null
+    },
+    "rifToMocPriceProvider": {
+      "contractName": "RIF/MOC price provider",
+      "address": "0x6A27F7D7457a0198631e835a13d7be9a94812002",
+      "description": "For RoC, final provider quoting RIF in MOC. This is the provider installed in the active RIF-to-MOC auctions.",
+      "proxyOf": null
+    },
+    "onlyMainnetRdocToken": {
+      "contractName": "RDOC token",
+      "address": "0x2d919f19d4892381d58edebeca66d5642cef1a1f",
+      "description": "For RoC, mainnet-only. Mainnet-only legacy RDOC token accepted by the RDOC-to-USD-RIF migrator.",
+      "proxyOf": null
+    },
+    "onlyMainnetTokenMigrator": {
+      "contractName": "RDOC-to-USD-RIF token migrator",
+      "address": "0x4ac78a51f67bdbc9fcb813d041914b2de37e87d7",
+      "description": "For RoC, mainnet-only. Mainnet-only migrator that converts legacy RDOC into the current USD-RIF token.",
+      "proxyOf": null
+    },
+    "votingMachine": {
+      "contractName": "Voting machine",
+      "address": "0x65a5681bE95d212F0c90eAd40170D8277de81169",
+      "description": "For shared governance, stable governance VotingMachine proxy on which proposals are registered and voted.",
+      "proxyOf": [["0x00594D5456c4650d10Edbb62D7a482d8Fa9a5b53", null]]
+    },
+    "votingUpgradeDelegator": {
+      "contractName": "Voting upgrade delegator",
+      "address": "0x131564703310a294C1bFDC09D10EC0659f18E253",
+      "description": "For shared governance, delegator authorized to upgrade the VotingMachine proxy after governance approval.",
+      "proxyOf": [["0x6D1cCA35Aa431F2AF0f0F2b9050c582B823ac731", null]]
+    },
+    "mocOracleManager": {
+      "contractName": "Oracle manager",
+      "address": "0x64A5634b2d1f17DC7C4765aAcD222f8e9Eb7712C",
+      "description": "For MoC, oracle manager coordinating coin pairs, oracle selection, and staking.",
+      "proxyOf": [["0xDa61bA24E64d508E27f699F6F41E46C6246f5c54", null]]
+    },
+    "rocOracleManager": {
+      "contractName": "Oracle manager",
+      "address": "0x64A5634b2d1f17DC7C4765aAcD222f8e9Eb7712C",
+      "description": "For RoC, oracle manager coordinating coin pairs, oracle selection, and staking.",
+      "proxyOf": [["0xDa61bA24E64d508E27f699F6F41E46C6246f5c54", null]]
     }
   },
   "testnet": {
-    "moc": {
-      "governor": {
-        "contractName": "Governor",
-        "address": "0x7b716178771057195bB511f0B1F7198EEE62Bc22",
-        "description": "Governance executor authorized to run approved protocol changes.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.governor"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xF7a62e993a84c5E50E9410ec4609D1D6a5397842"
-            }
-          ]
-        }
-      },
-      "oracleManager": {
-        "contractName": "Oracle manager",
-        "address": "0x493eefbB8F0a22f85708c0C890E7B531E61A7018",
-        "description": "Oracle manager coordinating coin pairs, oracle selection, and staking.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.oracleManager"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x79b2b85C697E4b7caD1e50cCEE7D48959436FD1D"
-            }
-          ]
-        }
-      },
-      "mocRegistry": {
-        "contractName": "Governed registry",
-        "address": "0xf078375a3dD89dDF4D9dA460352199C6769b5f10",
-        "description": "Governed registry of legacy MoC and shared flow contracts.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.mocRegistry"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xa94e301a7AA62cE1b37A2AA2370F1f4746a22316"
-            }
-          ]
-        }
-      },
-      "mocToken": {
-        "contractName": "MOC token",
-        "address": "0x45a97b54021a3F99827641AFe1BFAE574431e6ab",
-        "description": "Canonical MOC governance and fee token.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.mocToken"
-        }
-      },
-      "docToken": {
-        "contractName": "DOC token",
-        "address": "0xCB46c0ddc60D18eFEB0E586C17Af6ea36452Dae0",
-        "description": "Canonical DOC stable token shared by the legacy MoC and RoC integrations.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.docToken"
-        }
-      },
-      "mocStateV1": {
-        "contractName": "MoC v1 state",
-        "address": "0x0adb40132cB0ffcEf6ED81c26A1881e214100555",
-        "description": "Legacy MoC v1 state and pricing contract.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.mocStateV1"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xfb7385AA69d0b742d72c65f31aFeb2D1366E10c9"
-            }
-          ]
-        }
-      },
-      "supporters": {
-        "contractName": "Oracle supporters",
-        "address": "0x2Bb08e5DFb88477A88180Fbb7eF8196fbdea4Cd5",
-        "description": "Oracle Supporters proxy that accounts for stake and distributes oracle rewards.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.supporters"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x9043659601D186dC8e34686E8d617f86249e1a0F"
-            }
-          ]
-        }
-      },
-      "foundation": {
-        "contractName": "Foundation account",
-        "address": "0xf69287F5Ca3cC3C6d3981f2412109110cB8af076",
-        "description": "Protocol foundation or treasury recipient used by fee-distribution contracts.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.foundation"
-        }
-      },
-      "tasksRunner": {
-        "contractName": "Oracle tasks runner",
-        "address": "0x0E00baCDf5c6d6F51777998B4d7A660FD29e0fb6",
-        "description": "Stable TasksRunner proxy used by selected oracles to execute scheduled protocol maintenance.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.tasksRunner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x275C21554dBF6b0fb0fB4151A865Bf5D871b135C"
-            }
-          ]
-        }
-      },
-      "docToRbtcPriceProvider": {
-        "contractName": "DOC/RBTC price provider",
-        "address": "0x1d927673aFB57F82Af4a9CD94CCC5aA4915e0A13",
-        "description": "Price provider quoting DOC in RBTC. Use when a consumer explicitly requires a DOC/RBTC price.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.docToRbtcPriceProvider"
-        }
-      },
-      "rbtcToMocMocRewardsReverseAuction": {
-        "contractName": "RBTC-to-MOC rewards reverse auction",
-        "address": "0x80bB8a52290bF85C4b500980dcDB3FF14Ab8C35e",
-        "description": "Reverse auction converting RBTC into MOC for the MOC rewards buffer.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.rbtcToMocMocRewardsReverseAuction"
-        }
-      },
-      "mocV1": {
-        "contractName": "MoC v1 core",
-        "address": "0x2820f6d4D199B8D8838A4B26F9917754B86a0c1F",
-        "description": "Stable proxy for the legacy Money on Chain v1 core protocol.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.mocV1"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x349023B2A27FCCFD35137d572F4b00546A3Bd717"
-            }
-          ]
-        }
-      },
-      "mocInrateV1": {
-        "contractName": "MoC v1 interest and fees",
-        "address": "0x76790f846FAAf44cf1B2D717d0A6c5f6f5152B60",
-        "description": "Legacy MoC v1 interest-rate and commission contract.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.mocInrateV1"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x037EB78a137824644F6F189401334dBdF1549C7A"
-            }
-          ]
-        }
-      },
-      "coiner": {
-        "contractName": "Coiner",
-        "address": "0x5b7071270C3FD3d99BE411baCb145b2fb47F0D0F",
-        "description": "Stable Coiner proxy used by the shared reward-minting flow. Use the proxy address, never an implementation address.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.coiner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xfa9A023b58A7CCDB21404bFed5A37931dD44B24E"
-            }
-          ]
-        }
-      },
-      "multicall2": {
-        "contractName": "Multicall2",
-        "address": "0xaf7be1ef9537018feda5397d9e3bb9a1e4e27ac8",
-        "description": "Shared Multicall2 deployment used to batch read-only calls. It is infrastructure, not a protocol-owned proxy.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.multicall2"
-        }
-      },
-      "vendor": {
-        "contractName": "MoC application vendor account",
-        "address": "0xf69287F5Ca3cC3C6d3981f2412109110cB8af076",
-        "description": "Vendor account supplied by the MoC application so operations can be attributed for vendor commissions.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.vendor"
-        }
-      },
-      "rns": {
-        "contractName": "RNS registry",
-        "address": "0x7d284aaac6e925aad802a53c0c69efe3764597b8",
-        "description": "Canonical Rootstock Name Service registry for this network.",
-        "source": {
-          "repository": "main-RBTC-contract",
-          "field": "testnet.rns"
-        }
-      }
+    "governor": {
+      "contractName": "Governor",
+      "address": "0x7b716178771057195bB511f0B1F7198EEE62Bc22",
+      "description": "For MoC and RoC, governance executor authorized to run approved protocol changes.",
+      "proxyOf": [["0xF7a62e993a84c5E50E9410ec4609D1D6a5397842", null]]
     },
-    "roc": {
-      "governor": {
-        "contractName": "Governor",
-        "address": "0x7b716178771057195bB511f0B1F7198EEE62Bc22",
-        "description": "Governance executor authorized to run approved protocol changes.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.governor"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xF7a62e993a84c5E50E9410ec4609D1D6a5397842"
-            }
-          ]
-        }
-      },
-      "governorOwner": {
-        "contractName": "Governor owner account",
-        "address": "0x7d124cc0f59ada5793ad8eda9ed1836cb7e797a3",
-        "description": "Administrative owner associated with the governor deployment; this is an account, not the Governor contract.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.governorOwner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xB2CEd9774663a43c85e8213dA1dD164261F136fC"
-            }
-          ]
-        }
-      },
-      "holder": {
-        "contractName": "Test asset holder",
-        "address": "0x5bCdf8A2E61BD238AEe43b99962Ee8BfBda1Beca",
-        "description": "Funded account used by tests and operational simulations. Do not treat it as a protocol contract.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.holder"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xf035A1aA5681A0d3D04bfb94Ae345F8758cC37c2"
-            }
-          ]
-        }
-      },
-      "oracleManager": {
-        "contractName": "Oracle manager",
-        "address": "0x7b716178771057195bB511f0B1F7198EEE62Bc22",
-        "description": "Oracle manager coordinating coin pairs, oracle selection, and staking.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.oracleManager"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xF7a62e993a84c5E50E9410ec4609D1D6a5397842"
-            }
-          ]
-        }
-      },
-      "mocRegistry": {
-        "contractName": "Governed registry",
-        "address": "0xf078375a3dD89dDF4D9dA460352199C6769b5f10",
-        "description": "Governed registry of legacy MoC and shared flow contracts.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocRegistry"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xa94e301a7AA62cE1b37A2AA2370F1f4746a22316"
-            }
-          ]
-        }
-      },
-      "mocMultiCollateralGuard": {
-        "contractName": "Multi-collateral guard",
-        "address": "0xBc3669954b4c513140294ECF9B7b540cf964f0a3",
-        "description": "Stable proxy coordinating operations across the RIF-backed and DOC-backed collateral buckets.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocMultiCollateralGuard"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x767BC47D6B7116d2c43E5B839aAe99E64384aD34",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "testnet.mocMultiCollateralGuardImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0xEbcCA5B6A1e41aD1aC45Fd586D0E0e677fd5e902"
-            }
-          ]
-        }
-      },
-      "mocCore": {
-        "contractName": "Legacy RoC core",
-        "address": "0xa416934264515bb381E3b746f10f22D5c6f9431a",
-        "description": "Legacy RoC core contract retained for integrations that still refer to the original core deployment.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocCore"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xdd8134dee1bd67fBf681B7DA8D135CD732dD7c9C",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "testnet.mocRifImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0x949796d48C59a0161E5e76574033c525160c07f7"
-            }
-          ]
-        }
-      },
-      "mocToken": {
-        "contractName": "MOC token",
-        "address": "0x45a97b54021a3F99827641AFe1BFAE574431e6ab",
-        "description": "Canonical MOC governance and fee token.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocToken"
-        }
-      },
-      "rifToken": {
-        "contractName": "RIF token",
-        "address": "0x19F64674D8A5B4E652319F5e239eFd3bc969A1fE",
-        "description": "Canonical RIF token used as collateral by the RIF-backed RoC bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifToken"
-        }
-      },
-      "rifProToken": {
-        "contractName": "RIFPro token",
-        "address": "0xAC29DFF7B9b237B569cBb1595860bba77e848771",
-        "description": "Current RIFPro collateral token used by the RIF-backed RoC bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifProToken"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xFB37007aCb456a8832b9B9113A10Bb387911473F"
-            }
-          ]
-        }
-      },
-      "onlyTestnetLegacyRifProToken": {
-        "contractName": "Legacy RIFPro token",
-        "address": "0x23A1aA7b11e68beBE560a36beC04D1f79357f28d",
-        "description": "Testnet-only. Testnet-only legacy RIFPro token retained for testing the RIFPro migration path.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.legacyRifProToken"
-        }
-      },
-      "onlyTestnetRifProMigrator": {
-        "contractName": "RIFPro migrator",
-        "address": "0x49bDFd00D1Af1B46a933f6583238e69f6B7d76e2",
-        "description": "Testnet-only. Testnet-only migrator used to exercise the legacy RIFPro migration path.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifProMigrator"
-        }
-      },
-      "usdRifToken": {
-        "contractName": "USD-rif token",
-        "address": "0x8dbf326e12a9fF37ED6DDF75adA548C2640A6482",
-        "description": "Canonical USD-rif pegged token used by RoC collateral buckets.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.usdRifToken"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x7C0d9FeD90aC531EC0E3Bf4E67f4e07078f63316",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "testnet.usdRifImplementation"
-              }
-            }
-          ]
-        }
-      },
-      "docToken": {
-        "contractName": "DOC token",
-        "address": "0xCB46c0ddc60D18eFEB0E586C17Af6ea36452Dae0",
-        "description": "Canonical DOC stable token shared by the legacy MoC and RoC integrations.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.docToken"
-        }
-      },
-      "docProToken": {
-        "contractName": "DOC collateral token",
-        "address": "0x5579764B323966CD11d3a0936A8c75bEC61BA7D0",
-        "description": "Collateral token associated with the DOC-backed RoC bucket; it is not the DOC stable token.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.docProToken"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x0F205BA8EfACa236E2EBb9F156e70C6900A30c14"
-            }
-          ]
-        }
-      },
-      "rifBucket": {
-        "contractName": "RIF collateral bucket",
-        "address": "0xa416934264515bb381E3b746f10f22D5c6f9431a",
-        "description": "Stable proxy for the RIF-backed RoC collateral bucket whose pegged token is USD-rif.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifBucket"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xdd8134dee1bd67fBf681B7DA8D135CD732dD7c9C",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "testnet.mocRifImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0x949796d48C59a0161E5e76574033c525160c07f7"
-            }
-          ]
-        }
-      },
-      "docBucket": {
-        "contractName": "DOC collateral bucket",
-        "address": "0xFc2aF3396D8DB9398f7cF704Fa5F78aBAbb79650",
-        "description": "RoC multi-collateral bucket backed by DOC and serving USD-rif operations. This is the stable bucket proxy.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.docBucket"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x854860C7e82FC455D4161c4Bbe538d47c3e44191",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "testnet.docBucketImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0xA71AcF964619F03B536be3aD03cf82049FF59724"
-            }
-          ]
-        }
-      },
-      "rifQueue": {
-        "contractName": "RIF operation queue",
-        "address": "0x57672a34e92cA751148BcB303E5FE02E2E5F00Ed",
-        "description": "Operation queue used by the RIF collateral bucket. Use the proxy address for queue calls.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifQueue"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xdb863A19217d1D1aF9c1a5D98F30c56a6075F326",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "testnet.mocQueueImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0xc967069aA6c48230e532a9f5735FE9Aa4FE65c58"
-            }
-          ]
-        }
-      },
-      "docQueue": {
-        "contractName": "DOC operation queue",
-        "address": "0x313E40047eb61Db80BE00135dd25F04eD7b2203b",
-        "description": "Operation queue used by the DOC collateral bucket. Use the proxy address for queue calls.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.docQueue"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x47B0B4aD3170391Dde7B00482f76c93B715F87C5",
-              "source": {
-                "repository": "roc-sc-protocol-v2",
-                "field": "testnet.docBucketQueueImplementation"
-              }
-            },
-            {
-              "fromBlock": null,
-              "address": "0xc967069aA6c48230e532a9f5735FE9Aa4FE65c58"
-            }
-          ]
-        }
-      },
-      "rifUsdLegacyPriceProvider": {
-        "contractName": "Legacy RIF/USD price provider",
-        "address": "0x963eF288380d8466c7509775FdF32EDF56edcD56",
-        "description": "Legacy RIF/USD provider retained for contracts that have not moved to rifUsdCoinPair.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifUsdLegacyPriceProvider"
-        }
-      },
-      "rifToRbtcPriceProvider": {
-        "contractName": "RIF/RBTC price provider",
-        "address": "0xE01Ff5527ffae7Bc2f722966CC9272bbBf9f3E27",
-        "description": "Final provider quoting RIF in RBTC for protocol consumers.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifToRbtcPriceProvider"
-        }
-      },
-      "docToUsdRifPriceProvider": {
-        "contractName": "DOC/USD-rif price provider",
-        "address": "0x640a1102700325e68193F0741E7DA5Fd213Fde24",
-        "description": "Price provider quoting DOC in USD-rif for interactions between the DOC and RIF collateral buckets.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.docToUsdRifPriceProvider"
-        }
-      },
-      "docToRbtcPriceProvider": {
-        "contractName": "DOC/RBTC price provider",
-        "address": "0x1d927673aFB57F82Af4a9CD94CCC5aA4915e0A13",
-        "description": "Price provider quoting DOC in RBTC. Use when a consumer explicitly requires a DOC/RBTC price.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.docToRbtcPriceProvider"
-        }
-      },
-      "mocToRifBasePriceProvider": {
-        "contractName": "MOC/RIF base price provider",
-        "address": "0x8DCE78BbD4D757EF7777Be113277cf5A35283b1E",
-        "description": "Base provider used to derive a MOC/RIF price. Prefer the final directional provider when one is available.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocToRifBasePriceProvider"
-        }
-      },
-      "rifToRbtcDivisorPriceProvider": {
-        "contractName": "RIF/RBTC divisor",
-        "address": "0xbffBD993FF1d229B0FfE55668F2009d20d4F7C5f",
-        "description": "Divisor input used to derive RIF/RBTC pricing. Prefer rifToRbtcPriceProvider for the final quote.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifToRbtcDivisorPriceProvider"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x22181BA51a0b6DE4510FdbB84c5E090541f20742"
-            }
-          ]
-        }
-      },
-      "docCommissionSplitterV2": {
-        "contractName": "DOC commission splitter V2",
-        "address": "0xCA58E6B68b349BAd86b5E405fF68fa15c88Df22C",
-        "description": "Live version-2 splitter for fees produced by the DOC collateral bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.docCommissionSplitterV2"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x5A451237C21A970a5A8C6bA9a339C9d991c50493"
-            }
-          ]
-        }
-      },
-      "docToMocRocRewardsReverseAuction": {
-        "contractName": "DOC-to-MOC RoC rewards reverse auction",
-        "address": "0xBe950B0B03Fbc4205dc1E596c479F2Ef03cCA64f",
-        "description": "Reverse auction converting DOC into MOC for the RoC rewards flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.docToMocRocRewardsReverseAuction"
-        }
-      },
-      "mocStateV1": {
-        "contractName": "MoC v1 state",
-        "address": "0x0adb40132cB0ffcEf6ED81c26A1881e214100555",
-        "description": "Legacy MoC v1 state and pricing contract.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocStateV1"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xfb7385AA69d0b742d72c65f31aFeb2D1366E10c9"
-            }
-          ]
-        }
-      },
-      "btcUsdCoinPair": {
-        "contractName": "BTC/USD CoinPairPrice",
-        "address": "0x39192498FcF1dBE11653040bB49308E09A1056AC",
-        "description": "Canonical decentralized BTC/USD oracle coin pair used by protocol price providers and automation.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.btcUsdCoinPair"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x102632f38A8c1c1Dd115C0D8f80ddaAb01DB75e9"
-            }
-          ]
-        }
-      },
-      "supporters": {
-        "contractName": "Oracle supporters",
-        "address": "0x2Bb08e5DFb88477A88180Fbb7eF8196fbdea4Cd5",
-        "description": "Oracle Supporters proxy that accounts for stake and distributes oracle rewards.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.supporters"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x9043659601D186dC8e34686E8d617f86249e1a0F"
-            }
-          ]
-        }
-      },
-      "foundation": {
-        "contractName": "Foundation account",
-        "address": "0xf69287F5Ca3cC3C6d3981f2412109110cB8af076",
-        "description": "Protocol foundation or treasury recipient used by fee-distribution contracts.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.foundation"
-        }
-      },
-      "oracleOwner1": {
-        "contractName": "Oracle owner 1",
-        "address": "0xc256e64884be4f266c4f98f5e8e9f73486a7c829",
-        "description": "Known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.oracleOwner1"
-        }
-      },
-      "oracleOwner2": {
-        "contractName": "Oracle owner 2",
-        "address": "0x17f9fbb707fa50eb98d7ec32cfeda33d0924f1a1",
-        "description": "Known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.oracleOwner2"
-        }
-      },
-      "oracleOwner3": {
-        "contractName": "Oracle owner 3",
-        "address": "0xc9aacd76ff8a8c567cd947148cbfcc18c07b8b5c",
-        "description": "Known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.oracleOwner3"
-        }
-      },
-      "rifCommissionSplitterV2": {
-        "contractName": "RIF commission splitter V2",
-        "address": "0x499072990571C49Ef9369624885581b9C5aF0B11",
-        "description": "Live version-2 splitter for fees produced by the RIF collateral bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifCommissionSplitterV2"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x4CfA66FDb4776CEd23474ec3B54EAaeBFE4c61d9"
-            }
-          ]
-        }
-      },
-      "rifCommissionSplitterV3": {
-        "contractName": "RIF commission splitter V3",
-        "address": "0xD1FF3909dCa7C755F38e4FF04ce7170b4940d89B",
-        "description": "Live version-3 splitter for fees produced by the RIF collateral bucket.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifCommissionSplitterV3"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xB2F37B52991b8335076a63A85B580f3Bf6CBC133"
-            }
-          ]
-        }
-      },
-      "mocCommissionSplitterV2": {
-        "contractName": "MOC commission splitter V2",
-        "address": "0xFA17f640d0E914B20CDDF985B269D2Dc16e0f767",
-        "description": "Live version-2 splitter for MOC-denominated commissions.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocCommissionSplitterV2"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xfD5BaB5c176431aBe8aDE80Bea81fD47d0Df60cF"
-            }
-          ]
-        }
-      },
-      "mocCommissionSplitterV3": {
-        "contractName": "MOC commission splitter V3",
-        "address": "0x0dee24D1ffb67fA751a58042F2C7a858FFb3F207",
-        "description": "Live version-3 splitter for MOC-denominated commissions.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocCommissionSplitterV3"
-        },
-        "proxy": {
-          "standard": "eip1967_oz",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xA6c35A5269e504451BF4d86Cfb2BdEFcBEC574CE"
-            }
-          ]
-        }
-      },
-      "rifProRewardsBuffer": {
-        "contractName": "RIFPro rewards buffer",
-        "address": "0x1eDaDfd891793a5D1a011fFB82635C2Bbedc2511",
-        "description": "Buffer that accumulates RIFPro rewards before automated distribution.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifProRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xc357E663bcaddD07Dd2D7E764F1EA81FA69B058a"
-            }
-          ]
-        }
-      },
-      "rocrRewardsBuffer": {
-        "contractName": "ROCR rewards buffer",
-        "address": "0x6e364c96a83B72fe69843E50Fe08D09495AB0100",
-        "description": "Legacy buffer that accumulates ROCR rewards before automated distribution.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rocrRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xD9EafbAA6193889a0314fCBE816a99D274d155d1"
-            }
-          ]
-        }
-      },
-      "bitProRewardsBuffer": {
-        "contractName": "BitPro rewards buffer",
-        "address": "0xb998C3Da8D24295406d308ea42c85c8acDa880Ba",
-        "description": "Legacy buffer that accumulates BitPro rewards before automated distribution. Use this only for the legacy BitPro reward flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.bitProRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xde6769eC62D3C9D98e752A33458de0121B914a32"
-            }
-          ]
-        }
-      },
-      "bproRewardsBuffer": {
-        "contractName": "BPro rewards buffer",
-        "address": "0xBBD8aFD5E7D3127D9Ee372D9AD2BC0B0af8af066",
-        "description": "Legacy buffer that accumulates BPro rewards before automated distribution. Use this only for the legacy BPro reward flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.bproRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x9650987ADC75ca627BFFbBd12b22E4EE1d842200"
-            }
-          ]
-        }
-      },
-      "mocRewardsBuffer": {
-        "contractName": "MOC rewards buffer",
-        "address": "0x40d86d6ac67059bAe5ae42B6FCaB843c1c6af300",
-        "description": "Buffer that receives MOC rewards before they are distributed through the automated rewards flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocRewardsBuffer"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x62d898e0b75017859c0649002BEEF9FCB05b7159"
-            }
-          ]
-        }
-      },
-      "rifToMocRocRewardsReverseAuction": {
-        "contractName": "RIF-to-MOC RoC rewards reverse auction",
-        "address": "0x55c888D946784fcc732dB1bB4A5b059C67aE5510",
-        "description": "Reverse auction converting RIF into MOC for the RoC rewards flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifToMocRocRewardsReverseAuction"
-        }
-      },
-      "mocToRifRifBucketReverseAuction": {
-        "contractName": "MOC-to-RIF bucket reverse auction",
-        "address": "0x7461878FDe4144112f91DD6B913023563363bC80",
-        "description": "Reverse auction converting MOC into RIF for the RIF collateral-bucket flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocToRifRifBucketReverseAuction"
-        }
-      },
-      "mocToDocDocBucketReverseAuction": {
-        "contractName": "MOC-to-DOC bucket reverse auction",
-        "address": "0x94199B751709c7e9a6AdeCBA5aA28de5BB1178D0",
-        "description": "Reverse auction converting MOC into DOC for the DOC collateral-bucket flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocToDocDocBucketReverseAuction"
-        }
-      },
-      "rbtcToMocMocRewardsReverseAuction": {
-        "contractName": "RBTC-to-MOC rewards reverse auction",
-        "address": "0x80bB8a52290bF85C4b500980dcDB3FF14Ab8C35e",
-        "description": "Reverse auction converting RBTC into MOC for the MOC rewards buffer.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rbtcToMocMocRewardsReverseAuction"
-        }
-      },
-      "mocToRbtcMocV1ReverseAuction": {
-        "contractName": "MOC-to-RBTC MoC v1 reverse auction",
-        "address": "0x0cC17FC424cC39E07CF774f2597d2778261cf6a8",
-        "description": "Reverse auction converting MOC into RBTC for the legacy MoC v1 flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.mocToRbtcMocV1ReverseAuction"
-        }
-      },
-      "tasksRunner": {
-        "contractName": "Oracle tasks runner",
-        "address": "0x0E00baCDf5c6d6F51777998B4d7A660FD29e0fb6",
-        "description": "Stable TasksRunner proxy used by selected oracles to execute scheduled protocol maintenance.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.tasksRunner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x275C21554dBF6b0fb0fB4151A865Bf5D871b135C"
-            }
-          ]
-        }
-      },
-      "rifUsdCoinPair": {
-        "contractName": "RIF/USD CoinPairPrice",
-        "address": "0x45Eda601198Db28413fa7653300C52d5E4Db9b8b",
-        "description": "Decentralized RIF/USD oracle coin pair introduced for the current RoC price flow.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifUsdCoinPair"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x102632f38A8c1c1Dd115C0D8f80ddaAb01DB75e9"
-            }
-          ]
-        }
-      },
-      "rbtcToMocPriceProvider": {
-        "contractName": "RBTC/MOC price provider",
-        "address": "0x3C05F6193A2FBF9B6CF427C6CF1505Cf113eD417",
-        "description": "Price provider quoting RBTC in MOC for RBTC-to-MOC auctions.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rbtcToMocPriceProvider"
-        }
-      },
-      "rifToMocPriceProvider": {
-        "contractName": "RIF/MOC price provider",
-        "address": "0x169733DB88838a07061dB985dd52583170796F38",
-        "description": "Final provider quoting RIF in MOC. This is the provider installed in the active RIF-to-MOC auctions.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.rifToMocPriceProvider"
-        }
-      },
-      "multicall2": {
-        "contractName": "Multicall2",
-        "address": "0xaf7be1ef9537018feda5397d9e3bb9a1e4e27ac8",
-        "description": "Shared Multicall2 deployment used to batch read-only calls. It is infrastructure, not a protocol-owned proxy.",
-        "source": {
-          "repository": "roc-sc-protocol-v2",
-          "field": "testnet.multicall2"
-        }
-      }
+    "mocOracleManager": {
+      "contractName": "Oracle manager",
+      "address": "0x493eefbB8F0a22f85708c0C890E7B531E61A7018",
+      "description": "For MoC, oracle manager coordinating coin pairs, oracle selection, and staking.",
+      "proxyOf": [["0x79b2b85C697E4b7caD1e50cCEE7D48959436FD1D", null]]
     },
-    "governance": {
-      "votingMachine": {
-        "contractName": "Voting machine",
-        "address": "0x7D124cC0f59aDA5793AD8edA9eD1836cB7e797a3",
-        "description": "Stable governance VotingMachine proxy on which proposals are registered and voted.",
-        "source": {
-          "repository": "proposals-changers",
-          "field": "testnet.votingMachine"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xB2CEd9774663a43c85e8213dA1dD164261F136fC"
-            }
-          ]
-        }
-      },
-      "votingUpgradeDelegator": {
-        "contractName": "Voting upgrade delegator",
-        "address": "0x546afdf647d0b5c73323366b090ebe6c0c4d9b2c",
-        "description": "Delegator authorized to upgrade the VotingMachine proxy after governance approval.",
-        "source": {
-          "repository": "proposals-changers",
-          "field": "testnet.votingUpgradeDelegator"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0x2ff9efc4Dd7627b7a27ca2D37f9b72086160599d"
-            }
-          ]
-        }
-      },
-      "coiner": {
-        "contractName": "Coiner",
-        "address": "0x5b7071270C3FD3d99BE411baCb145b2fb47F0D0F",
-        "description": "Stable Coiner proxy used by the shared reward-minting flow. Use the proxy address, never an implementation address.",
-        "source": {
-          "repository": "proposals-changers",
-          "field": "testnet.coiner"
-        },
-        "proxy": {
-          "standard": "eip1967",
-          "historyComplete": false,
-          "implementations": [
-            {
-              "fromBlock": null,
-              "address": "0xfa9A023b58A7CCDB21404bFed5A37931dD44B24E"
-            }
-          ]
-        }
-      }
+    "rocOracleManager": {
+      "contractName": "Oracle manager",
+      "address": "0x7b716178771057195bB511f0B1F7198EEE62Bc22",
+      "description": "For RoC, oracle manager coordinating coin pairs, oracle selection, and staking.",
+      "proxyOf": [["0xF7a62e993a84c5E50E9410ec4609D1D6a5397842", null]]
+    },
+    "mocRegistry": {
+      "contractName": "Governed registry",
+      "address": "0xf078375a3dD89dDF4D9dA460352199C6769b5f10",
+      "description": "For MoC and RoC, governed registry of legacy MoC and shared flow contracts.",
+      "proxyOf": [["0xa94e301a7AA62cE1b37A2AA2370F1f4746a22316", null]]
+    },
+    "mocToken": {
+      "contractName": "MOC token",
+      "address": "0x45a97b54021a3F99827641AFe1BFAE574431e6ab",
+      "description": "For MoC and RoC, canonical MOC governance and fee token.",
+      "proxyOf": null
+    },
+    "docToken": {
+      "contractName": "DOC token",
+      "address": "0xCB46c0ddc60D18eFEB0E586C17Af6ea36452Dae0",
+      "description": "For MoC and RoC, canonical DOC stable token shared by the legacy MoC and RoC integrations.",
+      "proxyOf": null
+    },
+    "mocStateV1": {
+      "contractName": "MoC v1 state",
+      "address": "0x0adb40132cB0ffcEf6ED81c26A1881e214100555",
+      "description": "For MoC and RoC, legacy MoC v1 state and pricing contract.",
+      "proxyOf": [["0xfb7385AA69d0b742d72c65f31aFeb2D1366E10c9", null]]
+    },
+    "supporters": {
+      "contractName": "Oracle supporters",
+      "address": "0x2Bb08e5DFb88477A88180Fbb7eF8196fbdea4Cd5",
+      "description": "For MoC and RoC, Oracle Supporters proxy that accounts for stake and distributes oracle rewards.",
+      "proxyOf": [["0x9043659601D186dC8e34686E8d617f86249e1a0F", null]]
+    },
+    "foundation": {
+      "contractName": "Foundation account",
+      "address": "0xf69287F5Ca3cC3C6d3981f2412109110cB8af076",
+      "description": "For MoC and RoC, protocol foundation or treasury recipient used by fee-distribution contracts.",
+      "proxyOf": null
+    },
+    "tasksRunner": {
+      "contractName": "Oracle tasks runner",
+      "address": "0x0E00baCDf5c6d6F51777998B4d7A660FD29e0fb6",
+      "description": "For MoC and RoC, stable TasksRunner proxy used by selected oracles to execute scheduled protocol maintenance.",
+      "proxyOf": [["0x275C21554dBF6b0fb0fB4151A865Bf5D871b135C", null]]
+    },
+    "docToRbtcPriceProvider": {
+      "contractName": "DOC/RBTC price provider",
+      "address": "0x1d927673aFB57F82Af4a9CD94CCC5aA4915e0A13",
+      "description": "For MoC and RoC, price provider quoting DOC in RBTC. Use when a consumer explicitly requires a DOC/RBTC price.",
+      "proxyOf": null
+    },
+    "rbtcToMocMocRewardsReverseAuction": {
+      "contractName": "RBTC-to-MOC rewards reverse auction",
+      "address": "0x80bB8a52290bF85C4b500980dcDB3FF14Ab8C35e",
+      "description": "For MoC and RoC, reverse auction converting RBTC into MOC for the MOC rewards buffer.",
+      "proxyOf": null
+    },
+    "mocV1": {
+      "contractName": "MoC v1 core",
+      "address": "0x2820f6d4D199B8D8838A4B26F9917754B86a0c1F",
+      "description": "For MoC, stable proxy for the legacy Money on Chain v1 core protocol.",
+      "proxyOf": [["0x349023B2A27FCCFD35137d572F4b00546A3Bd717", null]]
+    },
+    "mocInrateV1": {
+      "contractName": "MoC v1 interest and fees",
+      "address": "0x76790f846FAAf44cf1B2D717d0A6c5f6f5152B60",
+      "description": "For MoC, legacy MoC v1 interest-rate and commission contract.",
+      "proxyOf": [["0x037EB78a137824644F6F189401334dBdF1549C7A", null]]
+    },
+    "coiner": {
+      "contractName": "Coiner",
+      "address": "0x5b7071270C3FD3d99BE411baCb145b2fb47F0D0F",
+      "description": "For MoC and shared governance, stable Coiner proxy used by the shared reward-minting flow. Use the proxy address, never an implementation address.",
+      "proxyOf": [["0xfa9A023b58A7CCDB21404bFed5A37931dD44B24E", null]]
+    },
+    "multicall2": {
+      "contractName": "Multicall2",
+      "address": "0xaf7be1ef9537018feda5397d9e3bb9a1e4e27ac8",
+      "description": "For MoC and RoC, shared Multicall2 deployment used to batch read-only calls. It is infrastructure, not a protocol-owned proxy.",
+      "proxyOf": null
+    },
+    "vendor": {
+      "contractName": "MoC application vendor account",
+      "address": "0xf69287F5Ca3cC3C6d3981f2412109110cB8af076",
+      "description": "For MoC, vendor account supplied by the MoC application so operations can be attributed for vendor commissions.",
+      "proxyOf": null
+    },
+    "rns": {
+      "contractName": "RNS registry",
+      "address": "0x7d284aaac6e925aad802a53c0c69efe3764597b8",
+      "description": "For MoC, canonical Rootstock Name Service registry for this network.",
+      "proxyOf": null
+    },
+    "governorOwner": {
+      "contractName": "Governor owner account",
+      "address": "0x7d124cc0f59ada5793ad8eda9ed1836cb7e797a3",
+      "description": "For RoC, administrative owner associated with the governor deployment; this is an account, not the Governor contract.",
+      "proxyOf": [["0xB2CEd9774663a43c85e8213dA1dD164261F136fC", null]]
+    },
+    "holder": {
+      "contractName": "Test asset holder",
+      "address": "0x5bCdf8A2E61BD238AEe43b99962Ee8BfBda1Beca",
+      "description": "For RoC, funded account used by tests and operational simulations. Do not treat it as a protocol contract.",
+      "proxyOf": [["0xf035A1aA5681A0d3D04bfb94Ae345F8758cC37c2", null]]
+    },
+    "mocMultiCollateralGuard": {
+      "contractName": "Multi-collateral guard",
+      "address": "0xBc3669954b4c513140294ECF9B7b540cf964f0a3",
+      "description": "For RoC, stable proxy coordinating operations across the RIF-backed and DOC-backed collateral buckets.",
+      "proxyOf": [
+        ["0xEbcCA5B6A1e41aD1aC45Fd586D0E0e677fd5e902", null],
+        ["0x767BC47D6B7116d2c43E5B839aAe99E64384aD34", null]
+      ]
+    },
+    "mocCore": {
+      "contractName": "Legacy RoC core",
+      "address": "0xa416934264515bb381E3b746f10f22D5c6f9431a",
+      "description": "For RoC, legacy RoC core contract retained for integrations that still refer to the original core deployment.",
+      "proxyOf": [
+        ["0x949796d48C59a0161E5e76574033c525160c07f7", null],
+        ["0xdd8134dee1bd67fBf681B7DA8D135CD732dD7c9C", null]
+      ]
+    },
+    "rifToken": {
+      "contractName": "RIF token",
+      "address": "0x19F64674D8A5B4E652319F5e239eFd3bc969A1fE",
+      "description": "For RoC, canonical RIF token used as collateral by the RIF-backed RoC bucket.",
+      "proxyOf": null
+    },
+    "rifProToken": {
+      "contractName": "RIFPro token",
+      "address": "0xAC29DFF7B9b237B569cBb1595860bba77e848771",
+      "description": "For RoC, current RIFPro collateral token used by the RIF-backed RoC bucket.",
+      "proxyOf": [["0xFB37007aCb456a8832b9B9113A10Bb387911473F", null]]
+    },
+    "onlyTestnetLegacyRifProToken": {
+      "contractName": "Legacy RIFPro token",
+      "address": "0x23A1aA7b11e68beBE560a36beC04D1f79357f28d",
+      "description": "For RoC, testnet-only. Testnet-only legacy RIFPro token retained for testing the RIFPro migration path.",
+      "proxyOf": null
+    },
+    "onlyTestnetRifProMigrator": {
+      "contractName": "RIFPro migrator",
+      "address": "0x49bDFd00D1Af1B46a933f6583238e69f6B7d76e2",
+      "description": "For RoC, testnet-only. Testnet-only migrator used to exercise the legacy RIFPro migration path.",
+      "proxyOf": null
+    },
+    "usdRifToken": {
+      "contractName": "USD-RIF token",
+      "address": "0x8dbf326e12a9fF37ED6DDF75adA548C2640A6482",
+      "description": "For RoC, canonical USD-RIF pegged token used by RoC collateral buckets.",
+      "proxyOf": [["0x7C0d9FeD90aC531EC0E3Bf4E67f4e07078f63316", null]]
+    },
+    "docProToken": {
+      "contractName": "DOC collateral token",
+      "address": "0x5579764B323966CD11d3a0936A8c75bEC61BA7D0",
+      "description": "For RoC, collateral token associated with the DOC-backed RoC bucket; it is not the DOC stable token.",
+      "proxyOf": [["0x0F205BA8EfACa236E2EBb9F156e70C6900A30c14", null]]
+    },
+    "rifBucket": {
+      "contractName": "RIF collateral bucket",
+      "address": "0xa416934264515bb381E3b746f10f22D5c6f9431a",
+      "description": "For RoC, stable proxy for the RIF-backed RoC collateral bucket whose pegged token is USD-RIF.",
+      "proxyOf": [
+        ["0x949796d48C59a0161E5e76574033c525160c07f7", null],
+        ["0xdd8134dee1bd67fBf681B7DA8D135CD732dD7c9C", null]
+      ]
+    },
+    "docBucket": {
+      "contractName": "DOC collateral bucket",
+      "address": "0xFc2aF3396D8DB9398f7cF704Fa5F78aBAbb79650",
+      "description": "For RoC, RoC multi-collateral bucket backed by DOC and serving USD-RIF operations. This is the stable bucket proxy.",
+      "proxyOf": [
+        ["0xA71AcF964619F03B536be3aD03cf82049FF59724", null],
+        ["0x854860C7e82FC455D4161c4Bbe538d47c3e44191", null]
+      ]
+    },
+    "rifQueue": {
+      "contractName": "RIF operation queue",
+      "address": "0x57672a34e92cA751148BcB303E5FE02E2E5F00Ed",
+      "description": "For RoC, operation queue used by the RIF collateral bucket. Use the proxy address for queue calls.",
+      "proxyOf": [
+        ["0xc967069aA6c48230e532a9f5735FE9Aa4FE65c58", null],
+        ["0xdb863A19217d1D1aF9c1a5D98F30c56a6075F326", null]
+      ]
+    },
+    "docQueue": {
+      "contractName": "DOC operation queue",
+      "address": "0x313E40047eb61Db80BE00135dd25F04eD7b2203b",
+      "description": "For RoC, operation queue used by the DOC collateral bucket. Use the proxy address for queue calls.",
+      "proxyOf": [
+        ["0xc967069aA6c48230e532a9f5735FE9Aa4FE65c58", null],
+        ["0x47B0B4aD3170391Dde7B00482f76c93B715F87C5", null]
+      ]
+    },
+    "rifUsdLegacyPriceProvider": {
+      "contractName": "Legacy RIF/USD price provider",
+      "address": "0x963eF288380d8466c7509775FdF32EDF56edcD56",
+      "description": "For RoC, legacy RIF/USD provider retained for contracts that have not moved to rifUsdCoinPair.",
+      "proxyOf": null
+    },
+    "rifToRbtcPriceProvider": {
+      "contractName": "RIF/RBTC price provider",
+      "address": "0xE01Ff5527ffae7Bc2f722966CC9272bbBf9f3E27",
+      "description": "For RoC, final provider quoting RIF in RBTC for protocol consumers.",
+      "proxyOf": null
+    },
+    "docToUsdRifPriceProvider": {
+      "contractName": "DOC/USD-RIF price provider",
+      "address": "0x640a1102700325e68193F0741E7DA5Fd213Fde24",
+      "description": "For RoC, price provider quoting DOC in USD-RIF for interactions between the DOC and RIF collateral buckets.",
+      "proxyOf": null
+    },
+    "mocToRifBasePriceProvider": {
+      "contractName": "MOC/RIF base price provider",
+      "address": "0x8DCE78BbD4D757EF7777Be113277cf5A35283b1E",
+      "description": "For RoC, base provider used to derive a MOC/RIF price. Prefer the final directional provider when one is available.",
+      "proxyOf": null
+    },
+    "rifToRbtcDivisorPriceProvider": {
+      "contractName": "RIF/RBTC divisor",
+      "address": "0xbffBD993FF1d229B0FfE55668F2009d20d4F7C5f",
+      "description": "For RoC, divisor input used to derive RIF/RBTC pricing. Prefer rifToRbtcPriceProvider for the final quote.",
+      "proxyOf": [["0x22181BA51a0b6DE4510FdbB84c5E090541f20742", null]]
+    },
+    "docCommissionSplitterV2": {
+      "contractName": "DOC commission splitter V2",
+      "address": "0xCA58E6B68b349BAd86b5E405fF68fa15c88Df22C",
+      "description": "For RoC, live version-2 splitter for fees produced by the DOC collateral bucket.",
+      "proxyOf": [["0x5A451237C21A970a5A8C6bA9a339C9d991c50493", null]]
+    },
+    "docToMocRocRewardsReverseAuction": {
+      "contractName": "DOC-to-MOC RoC rewards reverse auction",
+      "address": "0xBe950B0B03Fbc4205dc1E596c479F2Ef03cCA64f",
+      "description": "For RoC, reverse auction converting DOC into MOC for the RoC rewards flow.",
+      "proxyOf": null
+    },
+    "btcUsdCoinPair": {
+      "contractName": "BTC/USD CoinPairPrice",
+      "address": "0x39192498FcF1dBE11653040bB49308E09A1056AC",
+      "description": "For RoC, canonical decentralized BTC/USD oracle coin pair used by protocol price providers and automation.",
+      "proxyOf": [["0x102632f38A8c1c1Dd115C0D8f80ddaAb01DB75e9", null]]
+    },
+    "oracleOwner1": {
+      "contractName": "Oracle owner 1",
+      "address": "0xc256e64884be4f266c4f98f5e8e9f73486a7c829",
+      "description": "For RoC, known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
+      "proxyOf": null
+    },
+    "oracleOwner2": {
+      "contractName": "Oracle owner 2",
+      "address": "0x17f9fbb707fa50eb98d7ec32cfeda33d0924f1a1",
+      "description": "For RoC, known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
+      "proxyOf": null
+    },
+    "oracleOwner3": {
+      "contractName": "Oracle owner 3",
+      "address": "0xc9aacd76ff8a8c567cd947148cbfcc18c07b8b5c",
+      "description": "For RoC, known oracle-owner account used by the configured oracle network. This is an account, not an oracle signing key.",
+      "proxyOf": null
+    },
+    "rifCommissionSplitterV2": {
+      "contractName": "RIF commission splitter V2",
+      "address": "0x499072990571C49Ef9369624885581b9C5aF0B11",
+      "description": "For RoC, live version-2 splitter for fees produced by the RIF collateral bucket.",
+      "proxyOf": [["0x4CfA66FDb4776CEd23474ec3B54EAaeBFE4c61d9", null]]
+    },
+    "rifCommissionSplitterV3": {
+      "contractName": "RIF commission splitter V3",
+      "address": "0xD1FF3909dCa7C755F38e4FF04ce7170b4940d89B",
+      "description": "For RoC, live version-3 splitter for fees produced by the RIF collateral bucket.",
+      "proxyOf": [["0xB2F37B52991b8335076a63A85B580f3Bf6CBC133", null]]
+    },
+    "mocCommissionSplitterV2": {
+      "contractName": "MOC commission splitter V2",
+      "address": "0xFA17f640d0E914B20CDDF985B269D2Dc16e0f767",
+      "description": "For RoC, live version-2 splitter for MOC-denominated commissions.",
+      "proxyOf": [["0xfD5BaB5c176431aBe8aDE80Bea81fD47d0Df60cF", null]]
+    },
+    "mocCommissionSplitterV3": {
+      "contractName": "MOC commission splitter V3",
+      "address": "0x0dee24D1ffb67fA751a58042F2C7a858FFb3F207",
+      "description": "For RoC, live version-3 splitter for MOC-denominated commissions.",
+      "proxyOf": [["0xA6c35A5269e504451BF4d86Cfb2BdEFcBEC574CE", null]]
+    },
+    "rifProRewardsBuffer": {
+      "contractName": "RIFPro rewards buffer",
+      "address": "0x1eDaDfd891793a5D1a011fFB82635C2Bbedc2511",
+      "description": "For RoC, buffer that accumulates RIFPro rewards before automated distribution.",
+      "proxyOf": [["0xc357E663bcaddD07Dd2D7E764F1EA81FA69B058a", null]]
+    },
+    "rocrRewardsBuffer": {
+      "contractName": "ROCR rewards buffer",
+      "address": "0x6e364c96a83B72fe69843E50Fe08D09495AB0100",
+      "description": "For RoC, legacy buffer that accumulates ROCR rewards before automated distribution.",
+      "proxyOf": [["0xD9EafbAA6193889a0314fCBE816a99D274d155d1", null]]
+    },
+    "bitProRewardsBuffer": {
+      "contractName": "BitPro rewards buffer",
+      "address": "0xb998C3Da8D24295406d308ea42c85c8acDa880Ba",
+      "description": "For RoC, legacy buffer that accumulates BitPro rewards before automated distribution. Use this only for the legacy BitPro reward flow.",
+      "proxyOf": [["0xde6769eC62D3C9D98e752A33458de0121B914a32", null]]
+    },
+    "bproRewardsBuffer": {
+      "contractName": "BPro rewards buffer",
+      "address": "0xBBD8aFD5E7D3127D9Ee372D9AD2BC0B0af8af066",
+      "description": "For RoC, legacy buffer that accumulates BPro rewards before automated distribution. Use this only for the legacy BPro reward flow.",
+      "proxyOf": [["0x9650987ADC75ca627BFFbBd12b22E4EE1d842200", null]]
+    },
+    "mocRewardsBuffer": {
+      "contractName": "MOC rewards buffer",
+      "address": "0x40d86d6ac67059bAe5ae42B6FCaB843c1c6af300",
+      "description": "For RoC, buffer that receives MOC rewards before they are distributed through the automated rewards flow.",
+      "proxyOf": [["0x62d898e0b75017859c0649002BEEF9FCB05b7159", null]]
+    },
+    "rifToMocRocRewardsReverseAuction": {
+      "contractName": "RIF-to-MOC RoC rewards reverse auction",
+      "address": "0x55c888D946784fcc732dB1bB4A5b059C67aE5510",
+      "description": "For RoC, reverse auction converting RIF into MOC for the RoC rewards flow.",
+      "proxyOf": null
+    },
+    "mocToRifRifBucketReverseAuction": {
+      "contractName": "MOC-to-RIF bucket reverse auction",
+      "address": "0x7461878FDe4144112f91DD6B913023563363bC80",
+      "description": "For RoC, reverse auction converting MOC into RIF for the RIF collateral-bucket flow.",
+      "proxyOf": null
+    },
+    "mocToDocDocBucketReverseAuction": {
+      "contractName": "MOC-to-DOC bucket reverse auction",
+      "address": "0x94199B751709c7e9a6AdeCBA5aA28de5BB1178D0",
+      "description": "For RoC, reverse auction converting MOC into DOC for the DOC collateral-bucket flow.",
+      "proxyOf": null
+    },
+    "mocToRbtcMocV1ReverseAuction": {
+      "contractName": "MOC-to-RBTC MoC v1 reverse auction",
+      "address": "0x0cC17FC424cC39E07CF774f2597d2778261cf6a8",
+      "description": "For RoC, reverse auction converting MOC into RBTC for the legacy MoC v1 flow.",
+      "proxyOf": null
+    },
+    "rifUsdCoinPair": {
+      "contractName": "RIF/USD CoinPairPrice",
+      "address": "0x45Eda601198Db28413fa7653300C52d5E4Db9b8b",
+      "description": "For RoC, decentralized RIF/USD oracle coin pair introduced for the current RoC price flow.",
+      "proxyOf": [["0x102632f38A8c1c1Dd115C0D8f80ddaAb01DB75e9", null]]
+    },
+    "rbtcToMocPriceProvider": {
+      "contractName": "RBTC/MOC price provider",
+      "address": "0x3C05F6193A2FBF9B6CF427C6CF1505Cf113eD417",
+      "description": "For RoC, price provider quoting RBTC in MOC for RBTC-to-MOC auctions.",
+      "proxyOf": null
+    },
+    "rifToMocPriceProvider": {
+      "contractName": "RIF/MOC price provider",
+      "address": "0x169733DB88838a07061dB985dd52583170796F38",
+      "description": "For RoC, final provider quoting RIF in MOC. This is the provider installed in the active RIF-to-MOC auctions.",
+      "proxyOf": null
+    },
+    "votingMachine": {
+      "contractName": "Voting machine",
+      "address": "0x7D124cC0f59aDA5793AD8edA9eD1836cB7e797a3",
+      "description": "For shared governance, stable governance VotingMachine proxy on which proposals are registered and voted.",
+      "proxyOf": [["0xB2CEd9774663a43c85e8213dA1dD164261F136fC", null]]
+    },
+    "votingUpgradeDelegator": {
+      "contractName": "Voting upgrade delegator",
+      "address": "0x546afdf647d0b5c73323366b090ebe6c0c4d9b2c",
+      "description": "For shared governance, delegator authorized to upgrade the VotingMachine proxy after governance approval.",
+      "proxyOf": [["0x2ff9efc4Dd7627b7a27ca2D37f9b72086160599d", null]]
     }
   }
 }

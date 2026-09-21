@@ -3,7 +3,7 @@
     "This manifest publishes the typed Rootstock deployment address book.",
     "address-book.json is the only source of deployment records.",
     "The emitted library derives full and address-only views from that JSON.",
-    "viem is the only consumer dependency and supplies Address and Hash types.",
+    "viem is the only consumer dependency and supplies the Address type.",
     "Node and TypeScript packages below are development tools and are not runtime dependencies."
   ],
   "name": "address-book",

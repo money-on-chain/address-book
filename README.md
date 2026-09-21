@@ -1,9 +1,9 @@
 <!--
 This repository is the shared deployment address book for Money on Chain and Rif on Chain.
-The canonical address-book.json contains every address, description, provenance record, and proxy history.
+The canonical address-book.json contains every stable address, description, and known proxy history.
 The TypeScript library derives both metadata-rich and address-only views from that one file.
-Proxy updates inspect only entries explicitly marked as proxies and always cover both Rootstock networks.
-viem supplies the Address and Hash types but is not imported by the emitted JavaScript at runtime.
+Proxy updates inspect only entries whose proxyOf field is an array and always cover both Rootstock networks.
+viem supplies the Address type but is not imported by the emitted JavaScript at runtime.
 -->
 
 # address-book
@@ -13,13 +13,15 @@ Typed Rootstock deployment metadata for Money on Chain, Rif on Chain, and shared
 ```ts
 import { addressBook, addresses } from "address-book";
 
-const rifBucketMetadata = addressBook.mainnet.roc.rifBucket;
-const rifBucketAddress = addresses.mainnet.roc.rifBucket;
+const rifBucketMetadata = addressBook.mainnet.rifBucket;
+const rifBucketAddress = addresses.mainnet.rifBucket;
 ```
 
-`address-book.json` is the single source of truth. Each entry carries a stable address, a description of its role, and its original repository and field. The TypeScript exports read that file directly.
+`address-book.json` is the single source of truth. `mainnet` and `testnet` are flat name-to-entry mappings. Each entry contains a stable address, a description stating which protocol uses it, and `proxyOf`.
 
-An entry that exists in only one environment starts with `onlyMainnet` or `onlyTestnet`. Stable proxy addresses include a `proxy` property containing their known implementation history. Implementation addresses do not appear as stable lookup names.
+`proxyOf` is `null` when the entry is not a proxy. For a proxy, it is an array of `[implementationAddress, fromBlock]` tuples with the most recent known implementation first. `fromBlock` is the block at which that implementation became active; it may be `null` when unknown and consumers may ignore it. Implementation histories are informative records of old implementations for validation or verification. Integrations should use the stable entry address.
+
+An entry that exists in only one environment starts with `onlyMainnet` or `onlyTestnet`.
 
 ## Updating proxy histories
 
@@ -29,4 +31,4 @@ Run:
 npm run update:proxies
 ```
 
-The script checks every entry already marked as a proxy against the fixed Rootstock mainnet and testnet Blockscout endpoints. It merges `Upgraded(address)` events into `address-book.json` and validates that the final recorded implementation matches Blockscout's current implementation. It aborts on unsupported proxy standards or inconsistent explorer data rather than guessing.
+The script checks every entry whose `proxyOf` field is an array against the fixed Rootstock mainnet and testnet Blockscout endpoints. It merges `Upgraded(address)` events into `address-book.json` and validates that the first tuple matches Blockscout's current implementation. It aborts on unsupported proxy standards or inconsistent explorer data rather than guessing.
