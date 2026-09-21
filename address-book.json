@@ -348,34 +348,22 @@
       "description": "For RoC, final provider quoting RIF in MOC. This is the provider installed in the active RIF-to-MOC auctions.",
       "proxyOf": null
     },
-    "onlyMainnetRdocToken": {
+    "rdocToken": {
       "contractName": "RDOC token",
       "address": "0x2d919f19d4892381d58edebeca66d5642cef1a1f",
-      "description": "For RoC, mainnet-only. Mainnet-only legacy RDOC token accepted by the RDOC-to-USD-RIF migrator.",
+      "description": "For RoC, legacy RDOC token accepted by the RDOC-to-USD-RIF migrator.",
       "proxyOf": null
     },
-    "onlyMainnetRdocHolder": {
-      "contractName": "Funded RDOC holder",
-      "address": "0x0399489348fe8452fd00b104b03911fc387c031c",
-      "description": "For MoC and RoC end-to-end tests, mainnet-only funded account used to exercise RDOC migration flows.",
-      "proxyOf": null
-    },
-    "onlyMainnetRifAndDocHolder": {
-      "contractName": "Funded RIF and DOC holder",
-      "address": "0xD07d569322a93a47B62D71203e21f0AFf8246099",
-      "description": "For MoC and RoC end-to-end tests, mainnet-only funded account used to exercise RIF and DOC operations.",
-      "proxyOf": null
-    },
-    "onlyMainnetFastBtcBridge": {
+    "fastBtcBridge": {
       "contractName": "FastBTC bridge",
       "address": "0x1A8E78B41bc5Ab9Ebb6996136622B9b41A601b5C",
-      "description": "For the legacy MoC indexer, mainnet-only FastBTC bridge whose events are included in indexed application data.",
+      "description": "For the legacy MoC indexer, FastBTC bridge whose events are included in indexed application data.",
       "proxyOf": null
     },
-    "onlyMainnetTokenMigrator": {
+    "tokenMigrator": {
       "contractName": "RDOC-to-USD-RIF token migrator",
       "address": "0x4ac78a51f67bdbc9fcb813d041914b2de37e87d7",
-      "description": "For RoC, mainnet-only. Mainnet-only migrator that converts legacy RDOC into the current USD-RIF token.",
+      "description": "For RoC, migrator that converts legacy RDOC into the current USD-RIF token.",
       "proxyOf": null
     },
     "mocHelperLib": {
@@ -390,28 +378,22 @@
       "description": "For MoC, account authorized to pause the MoC v1 lending and borrowing contracts.",
       "proxyOf": null
     },
-    "onlyMainnetRocPauser": {
-      "contractName": "RoC pauser account",
-      "address": "0x5bCdf8A2E61BD238AEe43b99962Ee8BfBda1Beca",
-      "description": "For RoC, mainnet-only account installed as pauser by the panic-button split changer.",
-      "proxyOf": null
-    },
     "onlyMainnetMocSwapperExchange": {
       "contractName": "MoC swapper exchange",
       "address": "0x0E60154be285810DFa1d64FaC5acb4804d7A7ba0",
       "description": "For MoC, mainnet-only swapper proxy used by the MoC v1 lending and borrowing flow to exchange WRBTC, USDT, and DOC.",
       "proxyOf": [["0x3A8407D1Ffc9D2d81AC024E858A739DA3e7B740f", null]]
     },
-    "onlyMainnetBufferProxyAdmin": {
-      "contractName": "Rewards buffer proxy admin",
+    "proxyAdmin": {
+      "contractName": "Protocol proxy admin",
       "address": "0x1a1824F39d79937Dcb80c9D9938Ae77E431c2Def",
-      "description": "For MoC, mainnet-only ProxyAdmin that owns the lending and borrowing rewards-buffer proxy.",
+      "description": "For MoC and RoC, ProxyAdmin used by protocol-owned transparent proxies, including rewards buffers.",
       "proxyOf": null
     },
-    "onlyMainnetWrbtcToken": {
+    "wrbtcToken": {
       "contractName": "WRBTC token",
       "address": "0x542fDA317318eBF1d3DEAf76E0b632741A7e677d",
-      "description": "For MoC, canonical mainnet-only wrapped RBTC token used in lending and borrowing swap paths.",
+      "description": "For MoC and RoC, canonical wrapped RBTC token used by protocol integrations and swap paths.",
       "proxyOf": null
     },
     "onlyMainnetUsdtToken": {
@@ -574,6 +556,18 @@
       "address": "0xAC29DFF7B9b237B569cBb1595860bba77e848771",
       "description": "For RoC, current RIFPro collateral token used by the RIF-backed RoC bucket.",
       "proxyOf": [["0xFB37007aCb456a8832b9B9113A10Bb387911473F", null]]
+    },
+    "proxyAdmin": {
+      "contractName": "Protocol proxy admin",
+      "address": "0xeF26DDA31FEe5737d7a115eA0bAa2d352210B641",
+      "description": "For MoC and RoC, ProxyAdmin used by protocol-owned transparent proxies, including rewards buffers.",
+      "proxyOf": null
+    },
+    "wrbtcToken": {
+      "contractName": "WRBTC token",
+      "address": "0x69FE5cEC81D5eF92600c1A0dB1F11986AB3758Ab",
+      "description": "For MoC and RoC, canonical wrapped RBTC token used by protocol integrations and swap paths.",
+      "proxyOf": null
     },
     "onlyTestnetLegacyRifProToken": {
       "contractName": "Legacy RIFPro token",
@@ -795,6 +789,24 @@
       "contractName": "RIF/MOC price provider",
       "address": "0x169733DB88838a07061dB985dd52583170796F38",
       "description": "For RoC, final provider quoting RIF in MOC. This is the provider installed in the active RIF-to-MOC auctions.",
+      "proxyOf": null
+    },
+    "rdocToken": {
+      "contractName": "RDOC token",
+      "address": "0xC3De9F38581f83e281f260d0DdbaAc0e102ff9F8",
+      "description": "For RoC, legacy RDOC token accepted by the RDOC-to-USD-RIF migrator.",
+      "proxyOf": null
+    },
+    "fastBtcBridge": {
+      "contractName": "FastBTC bridge",
+      "address": "0xb3E92Db36eeac0627385Fa4F39F615a85eA5E911",
+      "description": "For the legacy MoC indexer, FastBTC bridge whose events are included in indexed application data.",
+      "proxyOf": null
+    },
+    "tokenMigrator": {
+      "contractName": "RDOC-to-USD-RIF token migrator",
+      "address": "0x31a3bE652Cf737FCC48bc1807c348fCFC8723Ba8",
+      "description": "For RoC, migrator that converts legacy RDOC into the current USD-RIF token.",
       "proxyOf": null
     },
     "mocHelperLib": {
