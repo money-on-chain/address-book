@@ -32,3 +32,13 @@ npm run update:proxies
 ```
 
 The script checks every entry whose `proxyOf` field is an array against the fixed Rootstock mainnet and testnet Blockscout endpoints. It merges `Upgraded(address)` events into `address-book.json` and validates that the first tuple matches Blockscout's current implementation. It aborts on unsupported proxy standards or inconsistent explorer data rather than guessing.
+
+## Development
+
+The published package includes `dist`, so installing it never runs a build or requires a pnpm `allowBuilds` entry. After cloning this repository, enable its dependency-free pre-commit hook once:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+The hook runs `npm run build` and rejects the commit when the regenerated `dist` differs from the staged files. Review and stage those generated changes, then commit again.

@@ -26,10 +26,9 @@
     "README.md"
   ],
   "scripts": {
-    "build": "npm run clean && tsc -p tsconfig.json",
+    "build": "npm run clean && tsc -p tsconfig.json && rm dist/types.js",
     "check": "tsc -p tsconfig.check.json",
     "clean": "rm -rf dist",
-    "prepack": "npm run build",
     "test": "tsx --test test/**/*.test.ts",
     "update:proxies": "tsx scripts/updateProxyHistory.ts"
   },

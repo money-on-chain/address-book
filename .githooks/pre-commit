@@ -1,0 +1,14 @@
+#!/bin/sh
+# This hook keeps the committed package output synchronized with its TypeScript source.
+# Git consumers receive dist directly and therefore never run package lifecycle builds.
+# The build runs only for contributors committing changes in this repository.
+# A changed dist tree fails the commit so generated files can be reviewed and staged.
+# Configure this repository once with: git config core.hooksPath .githooks
+set -eu
+
+npm run build
+
+if ! git diff --quiet -- dist; then
+  echo "dist changed during the build; review and stage it before committing." >&2
+  exit 1
+fi

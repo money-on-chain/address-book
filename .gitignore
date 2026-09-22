@@ -2,9 +2,8 @@
 # Packed npm archives are release artifacts rather than source files.
 # Editor logs do not describe address-book behavior and only create noise.
 # macOS metadata is unrelated to the package on every supported platform.
-# Build output is recreated for releases and is not part of the maintained source tree.
+# Runtime output is committed so Git consumers install without lifecycle builds.
 node_modules/
 *.tgz
 .log/
 .DS_Store
-dist/
