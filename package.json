@@ -7,7 +7,7 @@
     "Node and TypeScript packages below are development tools and are not runtime dependencies."
   ],
   "name": "address-book",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typed Rootstock address book for Money on Chain and Rif on Chain",
   "type": "module",
   "main": "./dist/index.js",
@@ -20,11 +20,7 @@
     "./address-book.json": "./address-book.json",
     "./package.json": "./package.json"
   },
-  "files": [
-    "address-book.json",
-    "dist",
-    "README.md"
-  ],
+  "files": ["address-book.json", "dist", "README.md"],
   "scripts": {
     "build": "npm run clean && tsc -p tsconfig.json && rm dist/types.js",
     "check": "tsc -p tsconfig.check.json",
