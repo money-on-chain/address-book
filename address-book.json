@@ -420,6 +420,103 @@
       "description": "For shared governance, delegator authorized to upgrade the VotingMachine proxy after governance approval.",
       "proxyOf": [["0x6D1cCA35Aa431F2AF0f0F2b9050c582B823ac731", null]]
     },
+    "splitDocFeesToFoundationAndRifOracle": {
+      "contractName": "DOC fees Foundation and RIF oracle buffer",
+      "address": "0xf338A7Bc9d82aD21b9229a7FB5f821FD1b5f7685",
+      "description": "For RoC, BufferToken proxy that splits DOC fee flows 30% to the Foundation and 70% to the RIF oracle funding auction.",
+      "proxyOf": [
+        [
+          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
+          null
+        ]
+      ]
+    },
+    "splitMocFeesToFoundationAndRifOracle": {
+      "contractName": "MOC fees Foundation and RIF oracle buffer",
+      "address": "0x0c25eF131Cff335fa30136182811f5f11C6f11af",
+      "description": "For RoC, BufferToken proxy that splits MOC fee flows 30% to the Foundation and 70% to the RIF/USD oracle.",
+      "proxyOf": [
+        [
+          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
+          null
+        ]
+      ]
+    },
+    "splitMocRewardsToBtcOracleAndTasksRunner": {
+      "contractName": "MOC rewards BTC oracle and TasksRunner buffer",
+      "address": "0x5028486837bcF926AD02E935cfFC3D475B39E189",
+      "description": "For RoC, BufferToken proxy that splits MOC rewards 10% to the BTC/USD oracle and 90% to TasksRunner.",
+      "proxyOf": [
+        [
+          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
+          null
+        ]
+      ]
+    },
+    "splitPriceUpdateFeesToBtcOracleAndRifOracle": {
+      "contractName": "Price-update fees BTC and RIF oracle buffer",
+      "address": "0x77625cCAca77f78741047FBee064c3B99C6a675D",
+      "description": "For RoC, BufferToken proxy that splits MOC price-update fees equally between the BTC/USD and RIF/USD oracles.",
+      "proxyOf": [
+        [
+          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
+          null
+        ]
+      ]
+    },
+    "splitRifFeesToFoundationAndRifOracle": {
+      "contractName": "RIF fees Foundation and RIF oracle buffer",
+      "address": "0x416c6f36dcDC2F025575C6cD5f5Fb80b4081efb1",
+      "description": "For RoC, BufferToken proxy that splits RIF fee flows 30% to the Foundation and 70% to the RIF oracle funding auction.",
+      "proxyOf": [
+        [
+          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
+          null
+        ]
+      ]
+    },
+    "swapDocFeesToMocForRifOracle": {
+      "contractName": "DOC fees to MOC RIF oracle swap auction",
+      "address": "0x38ED1f563e75d88CF4DB5DB07972B143b3C8EBFb",
+      "description": "For RoC, multi-hop reverse auction that converts DOC fee flows into MOC to fund the RIF/USD oracle.",
+      "proxyOf": null
+    },
+    "docToMocTasksRunnerReverseAuction": {
+      "contractName": "DOC-to-MOC TasksRunner reverse auction",
+      "address": "0x3D3dcCE7d6f0319FA4444A43c81732a7bAFb1713",
+      "description": "For RoC, multi-hop reverse auction that converts DOC into MOC for TasksRunner funding.",
+      "proxyOf": null
+    },
+    "rifToMocTasksRunnerReverseAuction": {
+      "contractName": "RIF-to-MOC TasksRunner reverse auction",
+      "address": "0x437427737A562239a3f1e73cb3A9F87FE258150c",
+      "description": "For RoC, multi-hop reverse auction that converts RIF into MOC for TasksRunner funding.",
+      "proxyOf": null
+    },
+    "swapRifFeesToMocForRifOracle": {
+      "contractName": "RIF fees to MOC RIF oracle swap auction",
+      "address": "0xf674b1e58c791A96735DC0431C3e83c67e6e1609",
+      "description": "For RoC, multi-hop reverse auction that converts RIF fee flows into MOC to fund the RIF/USD oracle.",
+      "proxyOf": null
+    },
+    "rbtcToMocRocNodesReverseAuction": {
+      "contractName": "RBTC-to-MOC RoC nodes reverse auction",
+      "address": "0x34d8e6F379c992D7402A0b60617Ba0a9F71f903C",
+      "description": "For RoC, reverse auction that converts RBTC into MOC for RoC node funding.",
+      "proxyOf": null
+    },
+    "rbtcToMocTasksRunnerReverseAuction": {
+      "contractName": "RBTC-to-MOC TasksRunner reverse auction",
+      "address": "0xA3667b1c7B39C429593491DDfe49F138EFE5C122",
+      "description": "For RoC, reverse auction that converts RBTC into MOC for TasksRunner funding.",
+      "proxyOf": null
+    },
+    "onlyMainnetColdWalletMultisigRewards": {
+      "contractName": "Cold-wallet multisig rewards account",
+      "address": "0xA088A8FCD247dcB1E99c7f98e2ef3CA7f274B183",
+      "description": "For RoC, mainnet-only cold-wallet multisig account that receives rewards.",
+      "proxyOf": null
+    },
     "oracleManager": {
       "contractName": "Oracle manager",
       "address": "0x64A5634b2d1f17DC7C4765aAcD222f8e9Eb7712C",
@@ -838,6 +935,104 @@
       "address": "0x546afdf647d0b5c73323366b090ebe6c0c4d9b2c",
       "description": "For shared governance, delegator authorized to upgrade the VotingMachine proxy after governance approval.",
       "proxyOf": [["0x2ff9efc4Dd7627b7a27ca2D37f9b72086160599d", null]]
+    }
+,
+    "onlyTestnetAlpha": {
+      "contractName": "Alpha",
+      "address": "0xd08B5ac0800267f187AFe2452B7B176E5D98948d",
+      "description": "For RoC, testnet-only address named Alpha in the flow deployment inventory.",
+      "proxyOf": null
+    },
+    "splitDocFeesToFoundationAndRifOracle": {
+      "contractName": "DOC fees Foundation and RIF oracle buffer",
+      "address": "0x63ec67E733b6c133b968eBeB9480Fb12E53094c6",
+      "description": "For RoC, BufferToken proxy that splits DOC fee flows 30% to the Foundation and 70% to the RIF oracle funding auction.",
+      "proxyOf": [
+        [
+          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
+          null
+        ]
+      ]
+    },
+    "splitMocFeesToFoundationAndRifOracle": {
+      "contractName": "MOC fees Foundation and RIF oracle buffer",
+      "address": "0xA2B68c64eB8d3ecCDf02C9F31b3E4Ca4f6aB8E31",
+      "description": "For RoC, BufferToken proxy that splits MOC fee flows 30% to the Foundation and 70% to the RIF/USD oracle.",
+      "proxyOf": [
+        [
+          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
+          null
+        ]
+      ]
+    },
+    "splitMocRewardsToBtcOracleAndTasksRunner": {
+      "contractName": "MOC rewards BTC oracle and TasksRunner buffer",
+      "address": "0x3aE12abBa72256271F8b0d403fC2B7e3A0a3d795",
+      "description": "For RoC, BufferToken proxy that splits MOC rewards 10% to the BTC/USD oracle and 90% to TasksRunner.",
+      "proxyOf": [
+        [
+          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
+          null
+        ]
+      ]
+    },
+    "splitPriceUpdateFeesToBtcOracleAndRifOracle": {
+      "contractName": "Price-update fees BTC and RIF oracle buffer",
+      "address": "0x78F3F291Ee174ec1e0Ab65d73797CB1A38025284",
+      "description": "For RoC, BufferToken proxy that splits MOC price-update fees equally between the BTC/USD and RIF/USD oracles.",
+      "proxyOf": [
+        [
+          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
+          null
+        ]
+      ]
+    },
+    "splitRifFeesToFoundationAndRifOracle": {
+      "contractName": "RIF fees Foundation and RIF oracle buffer",
+      "address": "0x7965E626fe79DE2216d5f8537899C2Ee2C527147",
+      "description": "For RoC, BufferToken proxy that splits RIF fee flows 30% to the Foundation and 70% to the RIF oracle funding auction.",
+      "proxyOf": [
+        [
+          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
+          null
+        ]
+      ]
+    },
+    "docToMocRifOracleReverseAuction": {
+      "contractName": "DOC-to-MOC RIF oracle reverse auction",
+      "address": "0x70a5b1a98f688158FFA50fa727519819e5B073C0",
+      "description": "For RoC, multi-hop reverse auction that converts DOC into MOC to fund the RIF/USD oracle.",
+      "proxyOf": null
+    },
+    "docToMocTasksRunnerReverseAuction": {
+      "contractName": "DOC-to-MOC TasksRunner reverse auction",
+      "address": "0xAf69c73Df7aD2f403f962Bf1dd8f311Cf6fb8676",
+      "description": "For RoC, multi-hop reverse auction that converts DOC into MOC for TasksRunner funding.",
+      "proxyOf": null
+    },
+    "rifToMocTasksRunnerReverseAuction": {
+      "contractName": "RIF-to-MOC TasksRunner reverse auction",
+      "address": "0x211854BB4968174edc886a59a51600fA3Fe21704",
+      "description": "For RoC, multi-hop reverse auction that converts testnet RIF into MOC for TasksRunner funding.",
+      "proxyOf": null
+    },
+    "rifToMocRifOracleReverseAuction": {
+      "contractName": "RIF-to-MOC RIF oracle reverse auction",
+      "address": "0xda962496b194757Be56E8856be4F4190e5290729",
+      "description": "For RoC, multi-hop reverse auction that converts testnet RIF into MOC to fund the RIF/USD oracle.",
+      "proxyOf": null
+    },
+    "rbtcToMocTasksRunnerReverseAuction": {
+      "contractName": "RBTC-to-MOC TasksRunner reverse auction",
+      "address": "0x33f4c5B2731310A99D01959855f0B96f82e22470",
+      "description": "For RoC, reverse auction that converts RBTC into MOC for TasksRunner funding.",
+      "proxyOf": null
+    },
+    "rbtcToMocRocNodesReverseAuction": {
+      "contractName": "RBTC-to-MOC RoC nodes reverse auction",
+      "address": "0x87344a0B9C391a7a30E65d0BB44cdAc15221292F",
+      "description": "For RoC, reverse auction that converts RBTC into MOC for RoC node funding.",
+      "proxyOf": null
     }
   }
 }
