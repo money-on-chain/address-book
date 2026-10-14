@@ -56,6 +56,18 @@
       "description": "For MoC and RoC, stable TasksRunner proxy used by selected oracles to execute scheduled protocol maintenance.",
       "proxyOf": [["0xA3eA7a013F11f71AD5D2139dDBBD385d559469D3", null]]
     },
+    "multiHopSwapper": {
+      "contractName": "Default multi-hop swapper",
+      "address": "0x24122d7FF0EF57C18e5C333E2c7bD863e4F23c73",
+      "description": "For MoC and RoC, default multi-hop swapper whose swap paths are controlled by MoC governance.",
+      "proxyOf": [["0xF03f33479E3a959d95eec93B591FF511957Ae354", null]]
+    },
+    "directSwapper": {
+      "contractName": "Default direct swapper",
+      "address": "0x60A8e0Ea47450f8FA74b705b7c0d60Ff22fD5e3F",
+      "description": "For MoC and RoC, direct swapper used by RBTC-to-MOC auctions, including the RIF/USD oracle funding auction.",
+      "proxyOf": [["0x6b18BF09e8f1283093Cebd57C7d9FBF13C09F233", null]]
+    },
     "docToRbtcPriceProvider": {
       "contractName": "DOC/RBTC price provider",
       "address": "0x6CA9d0e9382f58ac9B109f5F7F3AaBc8b86c1a24",
@@ -378,12 +390,6 @@
       "description": "For MoC, account authorized to pause the MoC v1 lending and borrowing contracts.",
       "proxyOf": null
     },
-    "onlyMainnetMocSwapperExchange": {
-      "contractName": "MoC swapper exchange",
-      "address": "0x0E60154be285810DFa1d64FaC5acb4804d7A7ba0",
-      "description": "For MoC, mainnet-only swapper proxy used by the MoC v1 lending and borrowing flow to exchange WRBTC, USDT, and DOC.",
-      "proxyOf": [["0x3A8407D1Ffc9D2d81AC024E858A739DA3e7B740f", null]]
-    },
     "proxyAdmin": {
       "contractName": "Protocol proxy admin",
       "address": "0x1a1824F39d79937Dcb80c9D9938Ae77E431c2Def",
@@ -475,8 +481,8 @@
         ]
       ]
     },
-    "swapDocFeesToMocForRifOracle": {
-      "contractName": "DOC fees to MOC RIF oracle swap auction",
+    "docToMocRifOracleReverseAuction": {
+      "contractName": "DOC-to-MOC RIF oracle reverse auction",
       "address": "0x38ED1f563e75d88CF4DB5DB07972B143b3C8EBFb",
       "description": "For RoC, multi-hop reverse auction that converts DOC fee flows into MOC to fund the RIF/USD oracle.",
       "proxyOf": null
@@ -493,8 +499,8 @@
       "description": "For RoC, multi-hop reverse auction that converts RIF into MOC for TasksRunner funding.",
       "proxyOf": null
     },
-    "swapRifFeesToMocForRifOracle": {
-      "contractName": "RIF fees to MOC RIF oracle swap auction",
+    "rifToMocRifOracleReverseAuction": {
+      "contractName": "RIF-to-MOC RIF oracle reverse auction",
       "address": "0xf674b1e58c791A96735DC0431C3e83c67e6e1609",
       "description": "For RoC, multi-hop reverse auction that converts RIF fee flows into MOC to fund the RIF/USD oracle.",
       "proxyOf": null
@@ -509,6 +515,18 @@
       "contractName": "RBTC-to-MOC TasksRunner reverse auction",
       "address": "0xA3667b1c7B39C429593491DDfe49F138EFE5C122",
       "description": "For RoC, reverse auction that converts RBTC into MOC for TasksRunner funding.",
+      "proxyOf": null
+    },
+    "rbtcToMocForRifUsdOracleReverseAuction": {
+      "contractName": "RBTC-to-MOC for RIF/USD oracle reverse auction",
+      "address": "0x5049ef3DD852ad07095E0ee0Bc9d65A5468efa40",
+      "description": "For RoC, MIP26-4001 reverse auction that converts RBTC into MOC to fund RIF/USD oracle publications.",
+      "proxyOf": null
+    },
+    "rbtcToMocForRifUsdOracleTask": {
+      "contractName": "RBTC-to-MOC for RIF/USD oracle task",
+      "address": "0xab51493820D74DC5ee7db6aEc519ca5Ea5C2C640",
+      "description": "For RoC, MIP26-4001 TasksRunner task that triggers the RIF/USD oracle funding auction when its RBTC balance reaches the order threshold.",
       "proxyOf": null
     },
     "onlyMainnetColdWalletMultisigRewards": {
@@ -578,6 +596,18 @@
       "address": "0x0E00baCDf5c6d6F51777998B4d7A660FD29e0fb6",
       "description": "For MoC and RoC, stable TasksRunner proxy used by selected oracles to execute scheduled protocol maintenance.",
       "proxyOf": [["0x275C21554dBF6b0fb0fB4151A865Bf5D871b135C", null]]
+    },
+    "multiHopSwapper": {
+      "contractName": "Default multi-hop swapper",
+      "address": "0xF607f5defD2Bb3C1a95E5fc41343016cCB45fDcA",
+      "description": "For MoC and RoC, default multi-hop swapper whose swap paths are controlled by MoC governance.",
+      "proxyOf": [["0x2488d1f93FE4E43818AcA01541cABF88C3c01636", null]]
+    },
+    "directSwapper": {
+      "contractName": "Default direct swapper",
+      "address": "0xCF03a538b50b159D24D614e04c77644B3Fd7820b",
+      "description": "For MoC and RoC, direct swapper used by RBTC-to-MOC auctions, including the RIF/USD oracle funding auction.",
+      "proxyOf": [["0xC5d73743d94Bb8BB2AeFB2C416c2366C65785eDC", null]]
     },
     "docToRbtcPriceProvider": {
       "contractName": "DOC/RBTC price provider",
@@ -1026,6 +1056,18 @@
       "contractName": "RBTC-to-MOC TasksRunner reverse auction",
       "address": "0x33f4c5B2731310A99D01959855f0B96f82e22470",
       "description": "For RoC, reverse auction that converts RBTC into MOC for TasksRunner funding.",
+      "proxyOf": null
+    },
+    "rbtcToMocForRifUsdOracleReverseAuction": {
+      "contractName": "RBTC-to-MOC for RIF/USD oracle reverse auction",
+      "address": "0x785F47eA42ef2e76916f5A112360ea2180DFf281",
+      "description": "For RoC, MIP26-4001 reverse auction that converts RBTC into MOC to fund RIF/USD oracle publications.",
+      "proxyOf": null
+    },
+    "rbtcToMocForRifUsdOracleTask": {
+      "contractName": "RBTC-to-MOC for RIF/USD oracle task",
+      "address": "0x9Ec9e06295D3dd04E455d989785794553631b319",
+      "description": "For RoC, MIP26-4001 TasksRunner task that triggers the RIF/USD oracle funding auction when its RBTC balance reaches the order threshold.",
       "proxyOf": null
     },
     "rbtcToMocRocNodesReverseAuction": {
