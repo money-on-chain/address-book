@@ -277,9 +277,9 @@
       "proxyOf": [["0x3DF0fd2E1f0f7A9004Fa10d4A4d25B299B259BeB", null]]
     },
     "mocCommissionSplitterV3": {
-      "contractName": "MOC commission splitter V3",
+      "contractName": "CommissionSplitterV3",
       "address": "0x114921bcbd5fc34E103494d338cA492B9400B0fD",
-      "description": "For RoC, live version-3 splitter for MOC-denominated commissions.",
+      "description": "For MOC, splits weekly BPRO interest rate",
       "proxyOf": [["0x165Ea15Fc08A8F9469EDaE30C7eA076999EBa019", null]]
     },
     "rifProRewardsBuffer": {
@@ -430,56 +430,31 @@
       "contractName": "DOC fees Foundation and RIF oracle buffer",
       "address": "0xf338A7Bc9d82aD21b9229a7FB5f821FD1b5f7685",
       "description": "For RoC, BufferToken proxy that splits DOC fee flows 30% to the Foundation and 70% to the RIF oracle funding auction.",
-      "proxyOf": [
-        [
-          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
-          null
-        ]
-      ]
+      "proxyOf": [["0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767", null]]
     },
     "splitMocFeesToFoundationAndRifOracle": {
       "contractName": "MOC fees Foundation and RIF oracle buffer",
       "address": "0x0c25eF131Cff335fa30136182811f5f11C6f11af",
       "description": "For RoC, BufferToken proxy that splits MOC fee flows 30% to the Foundation and 70% to the RIF/USD oracle.",
-      "proxyOf": [
-        [
-          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
-          null
-        ]
-      ]
+      "proxyOf": [["0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767", null]]
     },
     "splitMocRewardsToBtcOracleAndTasksRunner": {
       "contractName": "MOC rewards BTC oracle and TasksRunner buffer",
       "address": "0x5028486837bcF926AD02E935cfFC3D475B39E189",
       "description": "For RoC, BufferToken proxy that splits MOC rewards 10% to the BTC/USD oracle and 90% to TasksRunner.",
-      "proxyOf": [
-        [
-          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
-          null
-        ]
-      ]
+      "proxyOf": [["0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767", null]]
     },
     "splitPriceUpdateFeesToBtcOracleAndRifOracle": {
       "contractName": "Price-update fees BTC and RIF oracle buffer",
       "address": "0x77625cCAca77f78741047FBee064c3B99C6a675D",
       "description": "For RoC, BufferToken proxy that splits MOC price-update fees equally between the BTC/USD and RIF/USD oracles.",
-      "proxyOf": [
-        [
-          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
-          null
-        ]
-      ]
+      "proxyOf": [["0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767", null]]
     },
     "splitRifFeesToFoundationAndRifOracle": {
       "contractName": "RIF fees Foundation and RIF oracle buffer",
       "address": "0x416c6f36dcDC2F025575C6cD5f5Fb80b4081efb1",
       "description": "For RoC, BufferToken proxy that splits RIF fee flows 30% to the Foundation and 70% to the RIF oracle funding auction.",
-      "proxyOf": [
-        [
-          "0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767",
-          null
-        ]
-      ]
+      "proxyOf": [["0xF075FdBB60afb8823e11d99c84bE9A5Ec6F8b767", null]]
     },
     "docToMocRifOracleReverseAuction": {
       "contractName": "DOC-to-MOC RIF oracle reverse auction",
@@ -965,8 +940,7 @@
       "address": "0x546afdf647d0b5c73323366b090ebe6c0c4d9b2c",
       "description": "For shared governance, delegator authorized to upgrade the VotingMachine proxy after governance approval.",
       "proxyOf": [["0x2ff9efc4Dd7627b7a27ca2D37f9b72086160599d", null]]
-    }
-,
+    },
     "onlyTestnetAlpha": {
       "contractName": "Alpha",
       "address": "0xd08B5ac0800267f187AFe2452B7B176E5D98948d",
@@ -977,56 +951,31 @@
       "contractName": "DOC fees Foundation and RIF oracle buffer",
       "address": "0x63ec67E733b6c133b968eBeB9480Fb12E53094c6",
       "description": "For RoC, BufferToken proxy that splits DOC fee flows 30% to the Foundation and 70% to the RIF oracle funding auction.",
-      "proxyOf": [
-        [
-          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
-          null
-        ]
-      ]
+      "proxyOf": [["0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494", null]]
     },
     "splitMocFeesToFoundationAndRifOracle": {
       "contractName": "MOC fees Foundation and RIF oracle buffer",
       "address": "0xA2B68c64eB8d3ecCDf02C9F31b3E4Ca4f6aB8E31",
       "description": "For RoC, BufferToken proxy that splits MOC fee flows 30% to the Foundation and 70% to the RIF/USD oracle.",
-      "proxyOf": [
-        [
-          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
-          null
-        ]
-      ]
+      "proxyOf": [["0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494", null]]
     },
     "splitMocRewardsToBtcOracleAndTasksRunner": {
       "contractName": "MOC rewards BTC oracle and TasksRunner buffer",
       "address": "0x3aE12abBa72256271F8b0d403fC2B7e3A0a3d795",
       "description": "For RoC, BufferToken proxy that splits MOC rewards 10% to the BTC/USD oracle and 90% to TasksRunner.",
-      "proxyOf": [
-        [
-          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
-          null
-        ]
-      ]
+      "proxyOf": [["0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494", null]]
     },
     "splitPriceUpdateFeesToBtcOracleAndRifOracle": {
       "contractName": "Price-update fees BTC and RIF oracle buffer",
       "address": "0x78F3F291Ee174ec1e0Ab65d73797CB1A38025284",
       "description": "For RoC, BufferToken proxy that splits MOC price-update fees equally between the BTC/USD and RIF/USD oracles.",
-      "proxyOf": [
-        [
-          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
-          null
-        ]
-      ]
+      "proxyOf": [["0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494", null]]
     },
     "splitRifFeesToFoundationAndRifOracle": {
       "contractName": "RIF fees Foundation and RIF oracle buffer",
       "address": "0x7965E626fe79DE2216d5f8537899C2Ee2C527147",
       "description": "For RoC, BufferToken proxy that splits RIF fee flows 30% to the Foundation and 70% to the RIF oracle funding auction.",
-      "proxyOf": [
-        [
-          "0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494",
-          null
-        ]
-      ]
+      "proxyOf": [["0xb1AFB0152939912aAC9F6676B37fdEA5CB3Ac494", null]]
     },
     "docToMocRifOracleReverseAuction": {
       "contractName": "DOC-to-MOC RIF oracle reverse auction",
